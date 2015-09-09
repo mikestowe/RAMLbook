@@ -426,7 +426,7 @@ Using the !include file is as simple as:
 							schema: !include schemas/resource_get.json
 				
 ###Base
-I wish I was an oscar meyer weiner...
+	I wish I was an oscar meyer weiner...
 
 ###ResourceTypes
 ResourceTypes on the other hand let you create resource templates, or specific templates based on the type of resource, often split into item or collection.
@@ -622,9 +622,96 @@ Because of the unique capabilities of this tool, we'll first take a look at all 
 
 
 ##6. Spec Driven Development
+Spec Driven Development isn't part of RAML itself, but is a methodology that lets you incorporate design and development best practices, while ensuring you get the most out of your RAML spec.
+
+Sometimes companies and project managers are adverse to the idea of contract driven design as they instantly jump back to their struggles in meeting deadlines and producing a viable product with the infamous Waterfall Methodology.
+
+However, Spec Driven Development is not Waterfall or even Document Driven Design.  Instead, Spec Driven Development is designed to take best from all worlds, letting you establish a contract while incorporating agile sprints!
+
+So if Spec Driven Development isn't waterfall, what is it?
+
 ###What is Spec Driven Development
+Put simply Spec Driven Development is taking two agile processes and forcing them to work together.
+
+The first agile iteration is the creation of a design - or a process that incorporates agile user testing and careful reviews to ensure that the contract or spec you create is *nearly* flawless.
+
+This process is done in agile iterations, and can usually be accomplished in a matter of two to three weeks.
+
+The next process is development.  But how does it differ from Waterfall in this case?  Unlike Waterfall, you still use agile iterations and Test Driven Development to ensure that the parts of the API you are building meet your customers' needs.  You can even change the design still - HOWEVER this requires going back and fool-proofing the design by testing it and taking advantage of user testing to ensure that once again all the bugs are out.
+
+Essentially, the flow looks something like this:
+
+In the design stage you are creating a spec, mocking it out, getting user feedback, and validating or making changes to that spec:
+
+![Picture Needed](image_needed.png)
+
+Once you have a strong spec, one where you are confident it is consistent and your users have helped you rid yourself of a majority of the flaws (this means having a group of 20 or more outside developers provide feedback) you would then move into the development cycle, which is a one-way road UNLESS you find defects in which case you again go back to the design cycle in order to test them:
+
+![Picture Needed](image_needed.png)
+
+This in essence gives you the benefits of Waterfall with the power of Agile - a unique combination that APIs require as once your API goes into production it is too late to change the contract (something you can usually do with web applications making pure agile ideal).
+
+And while it may seem like an added step, by implementing Spec Driven Development you'll be able to identify the very flaws and inconsistencies that would otherwise doom your API, greatly shortening it's life cycle and rending all of your hard work useless!
+
+
 ###The Constraints of Spec Driven Development
-###Segmented Design/ Build Process
+Spec Driven Development is language/ tool agnostic, and can be used with any other API spec (such as Swagger or API Blueprint), but in order to be succesful, the Spec must be:
+
+1. **Standardized** – Use of a standardized spec related to the type of application you are building
+
+2. **Consistent** - The spec should remain consistent throughout in operations, utilizing consistent design patterns.
+
+3. **Tested** - Agile development of the spec, incorporating repeated user feedback with a long-term focus in mind
+
+4. **Concrete** – The creation of a complete, foundational spec to be used for your application
+
+5. **Immutable** – Coding to the Spec without deviation
+
+6. **Persistent** – The spec is not changed without strong reason and careful testing
+
+
+####Standardized
+Spec Driven Development encourages the use of a standardized format applicable to the type of application you are building.  In the case of building an API for example, the following specs would be considered standard, or common among the industry: RAML, Swagger, API Blueprint, IO Docs.
+
+Utilizing a standard spec ensures easy portability among developers, while also ensuring that the spec your application relies on has been thoroughly tested by the community to ensure that it will meet both your short-term and long-term needs while maintaining consistency in its own format.
+
+#####Consistent
+In developing your spec you should utilize pattern driven design as well as code reuse when possible to ensure that each aspect of your spec is consistent.  In the event of building an API, this would mean ensuing your resources are all formatted similarly and your methods all operate in a similar format – both in regards to the request and available responses.
+
+The purpose of consistency is to avoid confusion in both the development, and use of your application as all aspects of the application work similarly providing the end user with the freedom to move seamlessly from one focus to another.
+
+####Tested
+Spec Driven Development requires a strong, tested spec in order to build a reliable application.  This means that the spec has to be carefully crafted and then tested with both internal and external uses to ensure that it accomplishes its goals, and meets all parties needs.
+
+The spec should be crafted, mocked/ prototyped, and tested to retrieve user feedback.  Once user feedback is received, the spec should be modified appropriately, mocked, and tested again- creating a continuous cycle until you have perfected the spec – or at the least eliminated a large majority of the design issues to ensure spec and application longevity.
+
+####Concrete
+The specification should be the very foundation of your application, or in essence the concrete foundation of the house you are building.  The spec should encompass all aspects of your application, providing a solid blueprint that your developers can code to.  The spec does not have to encompass future additions, but should have taken as many of them into consideration as possible.  However, there is nothing that relates to the spec that is coded outside of existing inside of the spec.
+
+####Immutable
+The spec is the blueprint for development and is unchangeable by code.  This means that at no time is the code to deviate from the spec, or to override the spec.  The spec is the ultimate authority of the application design, being the aspect that has been most thought-out and carefully designed and tested by real-world users.  It is important to realize that short-term coding implementations can be detrimental to an application’s longevity, and as such have no place in spec driven development.
+
+####Persistent
+All things evolve, and the application and spec are no different.  However, each evolution must be just as carefully thought out as the original foundation.  The spec can change, however each change must be justified, carefully evaluated, tested, and perfected.  In the event of development, if the spec is found to be not renderable, it is important to go back and correct the spec, re-engaging in user testing and validation, and then updating the code to match to ensure that your code is consistent with your spec while also ensuring that the necessary changes do not reduce the longevity of your application.
+
+
+###The Benefits of Spec Driven Development
+Once again, by choosing a spec such as RAML, and implementing Spec Driven Development you are setting yourself up for success, and letting your developers develop fearlessly (as they no longer have to make things up as they go, or try to look things up and learn in "real time").
+
+Here are just some of the benefits that implementing Spec Driven Development provides:
+
+- It provides a clear path for developers, letting them do what they do best, Code
+
+- It ensures best practices as forced by RAML and other specs
+
+- It interjects user testing at the beginning of the development lifecycle, saving you time and money with invaluable testing and feedback from your real-world users
+
+- It forces long-term thinking and planning to avoid backwards incompatibilities, while also encouraging pattern based design to help reduce discrepancies in the consistency of the application
+
+- Allows for parallel development of dependencies based on prototypes, expediting the ability to release to production (ie you can start building your mobile app based on the prototype before having completed the code necessary to make your API functional)
+
+- Enables the use of open source communities and tools surrounding the spec, providing you with a strong community to learn from and freely available tooling that can save you thousands
+
 
 ##7. Putting it all Together
 Now that we have a strong understanding of how RAML works, we can create a fairly large and complex API in very little time, and keep it not only organized, but easy to read and edit for our technical writers!
@@ -644,6 +731,8 @@ You can find more information and resources on RAML at **[http://raml.org]()**
 For more information on API Design and Best Practices, I would urge you to check out my book **[Undisturbed REST: a Guide to Designing the Perfect API](http://www.mikestowe.com/books)** available for download at [http://mulesoft.com/restbook]() or for purchase at Amazon.com.
 
 Of course, there are many great books on API design, and of the many out there I would also personally recommend:
+
+- **API University Book**, *Authors*
 
 - **KEITH CASEY BOOK**, *Authors*
 
