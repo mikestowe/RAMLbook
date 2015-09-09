@@ -1,4 +1,4 @@
-#RAML 1.0 BOOK
+#%RAML 1.0 BOOK
 
 ##1. Designing an API is Hard
 It sure doesn't seem like it at first, but honestly, the hardest part of building an API - is not writing the code - but designing it.  Creating an API that your users will love, and that you will be able to continue to build upon, adding in more and more functionality as your platform grows.
@@ -110,18 +110,18 @@ The nice thing about using a tool like the API Designer is that it will automati
 
 To start the file off, we'll simply add `#RAML` followed by the version of RAML that we are using, in this case 1.0:
 
-	#RAML 1.0
+	#%RAML 1.0
 	
 This tells the parser that this should be handled as a RAML file, and also what version of RAML so that the parser knows how to handle the different types of functionality (for example, many features available in RAML 1.0 are not available in RAML 0.8 - this tells the parser to take adavntage of these features).
 
 Once we have declared the file as a RAML file (as shown above) the next thing we need to do is give our API a title, such as `My API`:
 
-	#RAML 1.0	
+	#%RAML 1.0	
 	title: My API
 	
 So far this has been pretty easy, right?  The next thing to add is our baseUri, or what the root domain and path for the API is.  This will be used by the majority of the tooling to tell your users where to make the calls, and even help them test their calls.  To add the baseUri, simply add it in like so:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -130,17 +130,21 @@ Last but not least, we should declare what version of the API "My API" this is. 
 
 We do this by adding in the `version` property like so:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
 	
 And there you go!  Just like that you have started off your RAML file.  The next part is adding in resources, methods, and properties - which the next few sections will walk you through.  The nice thing is, each aspect of RAML is as easy, and as clear-cut as the four items we declared above.
+
+####Adding in a Default Media Type
+
+####Adding in Available Protocols
 	
 ###Creating Resources
 Creating resources in RAML is as easy as writing down it's path.  For example, if we wanted to create an API with a `/users` resource, all we would need to type is `/users:` like so:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -153,7 +157,7 @@ Just like that we now have a `/users` resource:
 	
 To add a description to our `/users` resource, we simply follow YAML conventions and add the `description` property:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -177,7 +181,7 @@ Just like that you can setup IDs or dynamic resource paths:
 ####Nested Resources
 But another great feature of RAML is something called resource nesting, or creating child resources.  To add a nested resource, simply follow YAML convention by tabbing in once under the parent resource, and then declare your child resource as you did your parent resource - but with a relative path from the parent's path:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -194,7 +198,7 @@ However, it's important to note that the child resources inherit the parent path
 
 For example, if we look at this RAML snippet:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -213,7 +217,7 @@ Again, this is because the child resource only inherits the path and not the pro
 ###Creating Methods
 Just as creating resources was as simple as declaring the path, adding methods is as simple as declaring the method:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -233,7 +237,7 @@ Like with resources, you can add a description to your methods.  This is a perfe
 
 To add a description, simply use the `description` property:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -248,7 +252,7 @@ Another common functionality with APIs is Querystring Parameters, or manipulatin
 
 RAML lets you document the different querystrings under the method they are being implemented under (hopefully this is the `GET` method!!!) by using the `queryParameters` property, like so:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -260,7 +264,7 @@ RAML lets you document the different querystrings under the method they are bein
 			
 For each `queryParameter` you will simply need to declare the name of the parameter, keeping it consistent with how it is used within the URL.  So if our URL was `http://api.mydomain.com/users?status=active` we would call the query parameter "status" like so:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -277,7 +281,7 @@ And as simple as that, we now have the `status` query parameter showing up in ou
 	
 Of course, there is much more you can do with the query parameter, such as providing it's display name, a description, an example, the default value, whether or not it is required, and even it's type:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -302,7 +306,7 @@ More common than using form data for `PUT`, `PATCH`, and `POST` calls, however, 
 
 RAML also lets you share examples of what the user should be sending when making these calls by using the `body` property, and then the corresponding content-type:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -318,7 +322,7 @@ To do this we have two options, we can share a schema (more often used with XML)
 
 Of course, if we'd like we can share both by using the corresponding properties:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -365,7 +369,7 @@ By providing both this lets us share with our users what the request should look
 	
 Of course, your API may support numerous content-types, which works fairly well with RAML, as all you have to do to add an additional content type is, well, add it (I'm removing schemas in this case to keep it short, but of course RAML supports multiple content-types having schemas):
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -412,7 +416,7 @@ The easiest of the templates to setup, the `!include` function lets you pull in 
 
 Using the !include file is as simple as:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -438,7 +442,7 @@ You can also do the same with your item resources (/resource/{ID}), again creati
 
 Another huge advantage of resourceTypes is that it lets you define all your possible responses in a single place, rather than having to repeat your general status code responses (200, 201, 301, 304, 401, 404, 405, 415, 500) for each of the individual resources.
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
@@ -491,7 +495,7 @@ You'll noticed that the `/users` doesn't actually have any properties assigned t
 ####Declaring Optional Methods	
 Of course, chances are you do not want ALL the information to be pulled in all of the time, in which case you can make methods OPTIONAL by adding a `?` to the end of the method name, like so:
 
-	#RAML 1.0
+	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
