@@ -296,6 +296,7 @@ Of course, there is much more you can do with the query parameter, such as provi
 By providing this additional information, you are empowering your users as this information can be passed through to them in your documentation, as well as taken advantage of by other tools that parse your API's RAML spec.
 
 ####Form Data
+	This needs to be filled out!
 ####Body Data
 More common than using form data for `PUT`, `PATCH`, and `POST` calls, however, is the use of a format like JSON or XML within the body.
 
@@ -619,6 +620,8 @@ Because of the unique capabilities of this tool, we'll first take a look at all 
 ####RAML to HTML for PHP
 ###Share
 ####APIMatic.io
+###Build Your Own
+	Talk about Parsers and contributing :)
 
 
 ##6. Spec Driven Development
@@ -736,9 +739,10 @@ Of course, there are many great books on API design, and of the many out there I
 
 - **KEITH CASEY BOOK**, *Authors*
 
+- **KIRSTEN's BOOK**, *Authors*
+
 - **Mike Amundsens Book**, *Authors*
 
-- **KIRSTEN's BOOK**, *Authors*
 
 
 
