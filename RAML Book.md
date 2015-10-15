@@ -1,4 +1,4 @@
-#%RAML 1.0 BOOK
+#RAML 1.0 BOOK
 
 ##1. Designing an API is Hard
 It sure doesn't seem like it at first, but honestly, the hardest part of building an API - is not writing the code - but designing it.  Creating an API that your users will love, and that you will be able to continue to build upon, adding in more and more functionality as your platform grows.
@@ -178,6 +178,8 @@ Just like that you can setup IDs or dynamic resource paths:
 
 ![Picture Needed](image_needed.png)
 
+	MULTIPLE URI PROPERTIES
+
 ####Nested Resources
 But another great feature of RAML is something called resource nesting, or creating child resources.  To add a nested resource, simply follow YAML convention by tabbing in once under the parent resource, and then declare your child resource as you did your parent resource - but with a relative path from the parent's path:
 
@@ -297,6 +299,11 @@ Of course, there is much more you can do with the query parameter, such as provi
 					required: false
 					type: string
 
+
+Need to add:
+
+	validWhen/ requiredWhen
+	
 By providing this additional information, you are empowering your users as this information can be passed through to them in your documentation, as well as taken advantage of by other tools that parse your API's RAML spec.
 
 ####Form Data
@@ -400,11 +407,266 @@ What's important to remember is that schemas describe the request content, where
 					
 
 ###Handling Responses
+RAML lets you easily describe all aspects of your API resource method's responses for multiple status codes including defining headers, content-types, schemas, and example responses.
+
+To declare responses in RAML, simply use the `responses` property:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+	
+	/users:
+		post:
+			responses:
+
 ####Status Codes
+As RAML is intended to describe HTTP REST APIs, responses rely on the standard HTTP status codes.
+
+The most popular status codes are:
+
+Status Code | Description | Generally Returned For
+----------- | ----------- | ------------
+**2xx** | **Successful** |
+200 | The request was handled successfully | GET, PUT, PATCH
+201 | A new object has been created | POST
+204 | The request was successful, but there's no content to return | DELETE
+**3xx** | **Redirection** | 
+301 | Resource or item moved permanently | ALL
+304 | Nothing was modified by the request | PUT, PATCH
+**4xx** | **Client Error** | 
+400 | The request could not be understood by the server | ALL
+401 | Not authorized to access or perform action | ALL
+404 | The resource or item could not be found | GET
+405 | The method attempted (GET, PUT, POST, etc) is not allowed | ALL
+415 | The media type request (JSON, XML, etc) is not supported | ALL
+**5xx** | **Server Error** | 
+500 | The server experienced an unexpected error and could not complete the request | ALL
+
+However, you can find a more detailed list in chapter 9 my book, "Undisturbed REST."
+
+To setup responses for each status, use the status code as the key for the response, like so:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+	
+	/users:
+		post:
+			responses:
+				201:
+					# 200 - Object Created
+					
+				400:
+					# 400 - Bad Request
+				
+				500:
+					# 500 - Server Error
+
 ####Headers
+Headers are used to transmit important information about the response, such as the location of newly created object.
+
+Adding headers is as simple as using the `headers` property within the status code's response block.  Then add the name of the header (such as `location`) as the property.
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+	
+	/users:
+		post:
+			responses:
+				201:
+					headers:
+						location:
+							#location data will go here
+							
+Once you have defined the header by the property name you can add the following properties to each header property as necessary:
+
+Property | Description
+-------- | -----------
+displayName | How to display the header in documenation
+type | Data type of the header property such as string, integer, etc
+example | An example of the type of data the header may return
+
+For example:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+	
+	/users:
+		post:
+			responses:
+				201:
+					headers:
+						location:
+							displayName: Location
+							type: string
+							example: http://http://api.mydomain.com/users/109
+
+As you can see, this is then translated into our documentation for us:
+
+![Picture Needed](image_needed.png)
+
 ####Content Types
+RAML also lets you define not just one, but multiple content types for each HTTP Status Response code.
+
+This means that you can return back data as JSON, XML, plain text, form-encoded, or other formats.
+
+To define a content type, first state that you are returning back body data by using the `body` property, and then use the associated content-type for that content type, like so:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+	
+	/users:
+		post:
+			responses:
+				201:
+					headers:
+						# header information
+					
+					body:
+						application/json:
+						
+
+To list multiple content types, you can simply add additional content types within the `body` section of the status code response data, like so:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+	
+	/users:
+		post:
+			responses:
+				201:
+					headers:
+						# header information
+					
+					body:
+						application/json:
+						
+						text/xml:
+						
+The next step to showing off these content types is adding in example response data so that we can see what they look like.
+
+####Examples
+A unique feature of RAML compared to some other specifications is the ability to create your own examples rather than forcing you to build a schema for the response.
+
+Adding an example is as simple as using the `example` property.  However, because most examples are multi-lined, and because RAML is written in the YAML format, you'll need to add a pipe "|" so that it can be properly parsed.  
+
+Another option, of course, is to include your example using `!include` which we will talk about in a later chapter.
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+	
+	/users:
+		post:
+			responses:
+				201:
+					headers:
+						# header information
+					
+					body:
+						application/json:
+							example: |
+								{
+									"response" : "data"
+								}
+						
+						text/xml:
+							example: |
+								<response>
+									data
+								</response>
+
+Now if we look at the API Console we can see multiple content types (one for JSON and one for XML) as well as the example response data for each:
+
+![Picture Needed](image_needed.png)
+
 ####Schemas
+Schemas work very similarly to examples, except you need to use the `schema` property, like so:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+	
+	/users:
+		post:
+			responses:
+				201:
+					headers:
+						# header information
+					
+					body:
+						application/json:
+							example: |
+								{
+									"response" : "data"
+								}
+							
+							schema: |
+								{
+								  "$schema": "http://json-schema.org/draft-04/schema#",
+								  "id": "http://jsonschema.net",
+								  "type": "object",
+								  "properties": {								     "response": {
+								        "id": "http://jsonschema.net/response",
+								        "type": "string"
+								     }
+								  },
+								  "required": [
+								    "response"
+								  ]
+								}
+								
+	
+As you can see in the above example, RAML lets you explain your content types with examples, schemas, or both.
+
+Now if we look in the API Console, while we still have the example, we can now see the schema for the application/json response body:
+
+![Picture Needed](image_needed.png)
+
 ####Hypermedia
+One of the most popular feature requests for RAML 1.0 was added support for hypermedia, or dynamically driven linking formats.
+
+However, one of the problems with hypermedia is the fact that it can be so truly dynamic, meaning that there may not be a way to actually define what responses are available for which items as each can be so individualistic.
+
+The other challenge with supporting hypermedia is the number of hypermedia specifications in the market.  For example, you have JSON API, HAL, JSON-LD, Collection+JSON, Siren, Uber, Yahapi, CPHL, and many more.
+
+However, because hypermedia is represented in the body of the response, you are still able to describe a static representation of what types of links MAY be returned, as well as what hypermedia format you are returning.
+
+For example, if we are using HAL (content type: application/json+hal) we can represent an example of its usage like so:
+
+	/users:
+		post:
+			responses:
+				201:
+					headers:
+						# header information
+					
+					body:
+						application/json+hal:
+							example: |
+								{
+									"field1" : "data",
+									"field2" : "data",
+									"field3" : "data",
+									"_links" : {
+										"self": { "href": "/users/1" },
+										"messages": { "href": "/users/1/messages" },
+									}
+								}
+								
+
 ####Error Handling
 
 ##3. Setting up Templates
@@ -573,16 +835,7 @@ New in RAML 1.0, Annotations...
 Blah:
 
 ![Picture Needed](image_needed.png)
-	
-###Overlays
-Overlays...
 
-	CODE
-
-Blah:
-
-![Picture Needed](image_needed.png)
-	
 ###Libraries
 Libraries...
 
@@ -591,15 +844,39 @@ Libraries...
 Blah:
 
 ![Picture Needed](image_needed.png)
+	
+###Extensions
+Overlays... (a RAML file that extends another RAML file)
+
+	CODE
+
+Blah:
+
+![Picture Needed](image_needed.png)
+
+###Overlays
+Overlays... (a RAML file that extends another RAML file but in a strict Interface sense)
+
+	CODE
+
+Blah:
+
+![Picture Needed](image_needed.png)
+
 
 ##4. Advanced Features
 ###Models
+	Can be used in place of schemas
 ###Dynamic Properties
+	first match
+###Overloading
 ###Security
 ####Basic Auth
-####Token Based Auth
+####Digest Auth
 ####OAuth 1
 ####OAuth 2
+####Custom Auth
+###Strict Typing
 
 ##5. Community Tooling
 One of the strengths of RAML is the fact that the spec is surrounded by a very active open source community, while also being supported by some of the leading enterprises - ensuring a large selection of tooling to help you in all aspects of the API lifecycle.
@@ -612,11 +889,38 @@ Because of the unique capabilities of this tool, we'll first take a look at all 
 ###Design
 ####API Notebook
 ###Build
-####Osprey
+####JavaScript
+#####Osprey
+Osprey is a JavaScript framework for rapidly building applications that expose RAML APIs. It’s based on Node and Express.
+####Java
+#####Restlet
+With Restlet Framework's powerful routing and filtering capabilities, unified client and server Java API, developers can build secure and scalable RESTful web APIs. It is available for all major platforms (Java SE/EE, Google AppEngine, OSGi, GWT, Android) and offers numerous extensions to fit the needs of all developers.
+#####RAML for JAX-RS
+The goal of RAML for JAX-RS is to provide a set of tools to work with these technologies in a way of being able to scaffold a JAVA + JAX-RS application based on an existing RAML API definition (Code Generation), or its roundtrip, generate the RAML API definition based on an existing JAVA + JAX-RS application (Documentation).
+####.NET
+	NEEDS TO BE FILLED OUT
+####Python
+#####FLASK-RAML
+Flask-RAML (REST API Markup Language) generates an API server with parameter conversion, response encoding, and examples.
+#####raml-python
+RAML-python uses NodeJS to generate a framework for your API in Python.
 ###Test
-####Abao
-####API Science
-####SmartBear
+####Community Projects
+#####Abao
+Abao is a NodeJS command-line tool for testing API documentation written in RAML format against its backend implementation. With Abao you can easily plug your API documentation into the Continuous Integration system like Travis CI or Jenkins and have API documentation up-to-date, all the time. Abao uses Mocha for judging if a particular API response is valid or if is not.
+#####Vigia
+Vigia is a adaptable API integration test suite which supports test generation based on a RAML definition file.
+#####Postman
+Postman is one of the most popular API calling and testing tools used by developers today.  Freely available as a Chrome app, Postman supports API calls to any RESTful API and lets you setup scripts and tests after importing your RAML spec.  You can learn more about Postman at http://www.getpostman.com
+####Paid Services
+#####API Fortress
+API Fortress provides testing by checking latency and response speeds within your API.  With API Fortress you can also validate responses and payloads to ensure that whether in dev or production your API is functioning correctly.  On top their services, API Fortress offers their own API - letting you test your API on demand.  Learn more about API Fortress athttp://apifortress.com/
+#####API Science
+API Science offers worldwide monitoring and testing of your API to identify performance issues, outages, errors.  With API Science you’re able to test multiple aspects of your HTTP based REST API including JSON, OAuth, and XML.  You can even test real, advanced CRUD sequences in production and receive alerts via Slack, PagerDuty, or via webhooks.  Learn more about API Science at https://www.apiscience.com/
+#####SmartBear
+SmartBear offers a large suite of testing tools for your API, letting you pull in your RAML spec to identify latency/ speed issues, errors, and verify response data.  Along with API Readiness tools, they also offer API Virtualization, Continuous Integration tooling, and Performance testing.  Learn more about SmartBear at http://smartbear.com/
+
+
 ###Document
 ####API Console
 ####API Notebook
