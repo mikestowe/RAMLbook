@@ -892,31 +892,42 @@ Because of the unique capabilities of this tool, we'll first take a look at all 
 ####JavaScript
 #####Osprey
 Osprey is a JavaScript framework for rapidly building applications that expose RAML APIs. It’s based on Node and Express.
+
 ####Java
 #####Restlet
 With Restlet Framework's powerful routing and filtering capabilities, unified client and server Java API, developers can build secure and scalable RESTful web APIs. It is available for all major platforms (Java SE/EE, Google AppEngine, OSGi, GWT, Android) and offers numerous extensions to fit the needs of all developers.
+
 #####RAML for JAX-RS
 The goal of RAML for JAX-RS is to provide a set of tools to work with these technologies in a way of being able to scaffold a JAVA + JAX-RS application based on an existing RAML API definition (Code Generation), or its roundtrip, generate the RAML API definition based on an existing JAVA + JAX-RS application (Documentation).
-####.NET
+
+#### .NET
 	NEEDS TO BE FILLED OUT
+
 ####Python
 #####FLASK-RAML
 Flask-RAML (REST API Markup Language) generates an API server with parameter conversion, response encoding, and examples.
+
 #####raml-python
 RAML-python uses NodeJS to generate a framework for your API in Python.
+
 ###Test
 ####Community Projects
 #####Abao
 Abao is a NodeJS command-line tool for testing API documentation written in RAML format against its backend implementation. With Abao you can easily plug your API documentation into the Continuous Integration system like Travis CI or Jenkins and have API documentation up-to-date, all the time. Abao uses Mocha for judging if a particular API response is valid or if is not.
+
 #####Vigia
 Vigia is a adaptable API integration test suite which supports test generation based on a RAML definition file.
+
 #####Postman
 Postman is one of the most popular API calling and testing tools used by developers today.  Freely available as a Chrome app, Postman supports API calls to any RESTful API and lets you setup scripts and tests after importing your RAML spec.  You can learn more about Postman at http://www.getpostman.com
+
 ####Paid Services
 #####API Fortress
 API Fortress provides testing by checking latency and response speeds within your API.  With API Fortress you can also validate responses and payloads to ensure that whether in dev or production your API is functioning correctly.  On top their services, API Fortress offers their own API - letting you test your API on demand.  Learn more about API Fortress athttp://apifortress.com/
+
 #####API Science
 API Science offers worldwide monitoring and testing of your API to identify performance issues, outages, errors.  With API Science you’re able to test multiple aspects of your HTTP based REST API including JSON, OAuth, and XML.  You can even test real, advanced CRUD sequences in production and receive alerts via Slack, PagerDuty, or via webhooks.  Learn more about API Science at https://www.apiscience.com/
+
 #####SmartBear
 SmartBear offers a large suite of testing tools for your API, letting you pull in your RAML spec to identify latency/ speed issues, errors, and verify response data.  Along with API Readiness tools, they also offer API Virtualization, Continuous Integration tooling, and Performance testing.  Learn more about SmartBear at http://smartbear.com/
 
