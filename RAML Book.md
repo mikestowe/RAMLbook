@@ -1203,13 +1203,15 @@ For more information on API Design and Best Practices, I would urge you to check
 
 Of course, there are many great books on API design, and of the many out there I would also personally recommend:
 
-- **API University Book**, *Authors*
+- **Irresistible APIs**, *Kirsten Hunter*, 2016, Manning Productions
 
-- **KEITH CASEY BOOK**, *Authors*
+- **API Architecture: The Big Picture for Building APIs**, *Matthais Biehl*, 2015
 
-- **KIRSTEN's BOOK**, *Authors*
+- **RESTful Java Web Services, 2nd Edition**, *Purushothaman Jobinesh*, 2015, PACKT
 
-- **Mike Amundsens Book**, *Authors*
+- **A Practical Approach to API Design**, *D. Keith Casey Jr & James Higginbotham*, 2015, LeanPub
+
+- **RESTful Web APIs**, *Leonard Richardson, Mike Amundsen, & Sam Ruby*, 2013, O'REILLY
 
 
 
