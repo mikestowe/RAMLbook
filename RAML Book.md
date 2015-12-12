@@ -100,8 +100,10 @@ This ensures that you get the "most bang out of your buck."  In fact, the benefi
 In short, RAML let's you do more, faster, with less.
 
 ##2. Getting Started
-	Need to add getting started stuff here
-###The Basics
+###Using the API Designer
+###Installing API Workbench
+	STUFF NEEDS TO GO HERE
+###RAML Basics
 The nice thing about using a tool like the API Designer is that it will automatically prefill the required aspects of your RAML file for you.  These are the:
 	- RAML and version declaration
 	- Your API Title
@@ -138,8 +140,10 @@ We do this by adding in the `version` property like so:
 And there you go!  Just like that you have started off your RAML file.  The next part is adding in resources, methods, and properties - which the next few sections will walk you through.  The nice thing is, each aspect of RAML is as easy, and as clear-cut as the four items we declared above.
 
 ####Adding in a Default Media Type
+	Stuff goes here
 
 ####Adding in Available Protocols
+	Stuff goes here
 	
 ###Creating Resources
 Creating resources in RAML is as easy as writing down it's path.  For example, if we wanted to create an API with a `/users` resource, all we would need to type is `/users:` like so:
@@ -229,7 +233,7 @@ Just as creating resources was as simple as declaring the path, adding methods i
 		
 Which in turn creates:
 
-![Picture Needed](images/raml_005.tiff) here
+![Picture Needed](images/raml_005.tiff)
 
 RAML supports `GET`, `PUT`, `PATCH`, `POST`, `DELETE`, `TRACE`, `HEAD`, and `OPTIONS` although you'll want to be careful which ones you use as not all are official methods, and not all are supported by all servers.
 
@@ -308,6 +312,7 @@ By providing this additional information, you are empowering your users as this 
 
 ####Form Data
 	This needs to be filled out!
+	
 ####Body Data
 More common than using form data for `PUT`, `PATCH`, and `POST` calls, however, is the use of a format like JSON or XML within the body.
 
@@ -718,27 +723,23 @@ Another huge advantage of resourceTypes is that it lets you define all your poss
 	version: 1
 	
 	resourceTypes:
-	 - item:
+	 - collection:
 	 	get:
 	 		description: this is a get method
-	 		
-	 	put:
-	 		description: this is a put method
 	 		
 	 	post:
 	 		description: this is a post method
 	 		
 	 	delete:
 	 		description: this is a delete method
-	 		responses:
+	 		responses:	 		
 	 			202:
 	 				headers:
-	 					
 	 			304:
 	 				body:
 	 					application/json:
 	 						example: |
-	 							{"Response" : "Nothing Mofidied"}
+	 							{"Response" : "Nothing Mofidied"}ers:
 	 			401:
 	 				body:
 	 					application/json:
@@ -761,7 +762,7 @@ Another huge advantage of resourceTypes is that it lets you define all your poss
 	 							{"Response" : "Internal Server Error"}
 	
 	/users:
-		type: item
+		type: collection
 		
 You'll noticed that the `/users` doesn't actually have any properties assigned to it other than `type: item`, but because it is of a known resourceType, all of the information will be automatically pulled into it for us:
 
@@ -780,7 +781,7 @@ Of course, chances are you do not want ALL the information to be pulled in all o
 	version: 1
 	
 	resourceTypes:
-	 - item:
+	 - collection:
 	 	get?:
 	 		description: this is a get method
 	 		
@@ -794,7 +795,7 @@ Of course, chances are you do not want ALL the information to be pulled in all o
 	 		description: this is a delete method
 	
 	/users:
-		type: item
+		type: collection
 
 Now the `/resource` does not have ANY properties being pulled in because we have declared all the methods to be optional, and to only be pulled in if explicitly called by the resource.
 
@@ -803,7 +804,7 @@ Now the `/resource` does not have ANY properties being pulled in because we have
 But the second we call in one of the properties, we now have it's description and any underlying properties that we would delcared:
 	
 	/users:
-		type: item
+		type: collection
 		get:
 
 As you can see here:
@@ -819,11 +820,37 @@ However, for properties that are consistent across your resources, it may be mos
 
 Placeholders within RAML are denoted by double less than and greater than signs, or `<<PLACEHOLDER>>`.
 
-	Example Code
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+
+	resourceTypes:
+	 - collection:
+	    get:
+	      description: this is a get method
+	      responses:
+	        200:
+	          body:
+	            application/json:
+	              example: |
+	                <<exampleItem>>
 	
-As you can see from the code above, first we declare our placeholders in the resourceType itself, and then we specify the values in the calling resource.  These placeholders are automatically replaced with the correct data:
+As you can see from the code above, first we declare our placeholders in the resourceType itself, and then we specify the values in the calling resource, under that specific type:
+
+	/users:
+    	type: 
+      		collection:
+        		exampleItem: |
+		          {
+		            "name": "Mike Stowe",
+		            "city": "San Francisco",
+		            "state": "CA"
+		          }
+
+These placeholders are automatically replaced with the correct data in our documentation:
 	
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_017.tiff)
 	
 This allows us to ensure consistency not only in how our resources operate, but also in our documentation.  Making it easy for our developers to go from resource to resource, knowing that the code and the documentation will be consistent.
 
@@ -832,44 +859,141 @@ Traits operate in a fairly similar fashion to resourceTypes except that they ope
 
 Traits are typically used for operations such as pagination, searching, or filtering the method data.
 
-To delcare a trait, first we need to declare the trait, and then we will pull it into our method using the `is` property:
+To delcare a trait, first we need to declare it at the top of our spec under the `traits` property: 
 
-	Sample Code
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+
+	traits: 
+	  - pageable:
+	      queryParameters:
+	        offset:
+	          description: Skip over a number of elements by specifying an offset value for the query
+	          type: integer
+	          required: false
+	          example: 20
+	          default: 0
+	        limit:
+	          description: Limit the number of elements on the response
+	          type: integer
+	          required: false
+	          example: 80
+	          default: 10
+
+And then we will pull it into our method using the `is` property:
+
+	/users:
+    	get:
+      		is: [pageable]
 	
 Once the trait is successfully pulled in, we can see it within the API designer or in our documentation:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_018.tiff)
+
+As mentioned, you can also take advantage of placeholders with traits by sending these values back in a key, value based array:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+
+	traits: 
+	  - filterable:
+	  - pageable:
+	      queryParameters:
+	        offset:
+	          description: Skip over a number of elements by specifying an offset value for the query
+	          type: integer
+	          required: false
+	          example: 20
+	          default: <<offsetDefault>>
+	        limit:
+	          description: Limit the number of elements on the response
+	          type: integer
+	          required: false
+	          example: 80
+	          default: <<limitDefault>>
+	          
+	/users:
+    	get:
+      		is: [
+      				filterable,
+      				pageable: {offsetDefault: 0, limitDefault: 20}
+      			]
 	
 The biggest advantage of traits is that they ensure consistency in the way your methods are acted upon.  Remember in Chapter 1 where we talked about how easy it is for these inconsitencies to crop up, making APIs difficult to use (as you have to search one resource one way, but another a completely different way - or worse, the same resource different ways) - by using traits you are creating a sure way NOT to run into this issue and have such inconsistences across your API.
 
 The other nice thing about traits is that you can apply mulitple traits to your methods, letting you pull in and utilize multiple types of functions as much or as little as needed.
 
-###Annotations
-New in RAML 1.0, Annotations...
-
-	CODE
-
-Blah:
-
-![Picture Needed](image_needed.png)
-
 ###Libraries
-Libraries...
+As you start adding traits, resourceTypes, schemas, and examples, it's easy for your specifcation to become bloated.  Of course you can call all of these in with `!include` but you still are not able to take advantage of code reuse at scale.
 
-	CODE
+One of the new features of RAML 1.0 is libraries, or the ability to call in parts of your specification in a namespaced scope - meaning that you can pick and choose which of these items to apply to your spec.
 
-Blah:
+This is particularly helpful if you have multiple APIs that share common themes (`/users` for example).
 
-![Picture Needed](image_needed.png)
+To pull in a namespaced library, you'll first want to create a library file.  We declare that a RAML specification is only to be used as a library by adding "Library" to the top of the file, like so:
+
+	#%RAML 1.0 Library
 	
-###Extensions
-Overlays... (a RAML file that extends another RAML file)
+By adding this line, we are telling the RAML spec to treat this file as a class, and not as an independent RAML specification.
 
-	CODE
+Let's move our resourceTypes and Traits into this file:
 
-Blah:
+	#%RAML 1.0 Library
+	resourceTypes:
+	  - collection:
+	      get:
+	        # Get method goes here
+	      post:
+	        # Post method goes here
+	      delete:
+	        # Delete method goes here
 
-![Picture Needed](image_needed.png)
+	traits:
+	  - filterable:
+	      #Filterable trait goes here
+	  - pageable:
+	      #Pageable trait goes here
+	      
+Now to call in this library, we will again pull it in using the `uses` property and the `!include` command:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+
+	uses:
+	  users: !include libraries/users.raml
+
+	/users:
+	    get:
+	    
+However, at this point nothing is being applied to the resource or the method.  If we try to apply the "collection" resourceType as we did before, the result will be an error:
+
+![Picture Needed](images/raml_019.tiff)
+
+The reason for this is that the resourceType "collection" doesn't exist!  Instead, it is part of the `users` object that we declared above, and as such to utilize that resourceType we have to call it with respect to its parent's name, like so:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+
+	uses:
+		users: !include libraries/users.raml
+
+	/users:
+		type: users.collection
+		get:
+		
+As you can see, now the resourceType users.collection has been applied to our resource:
+
+![Picture Needed](images/raml_020.tiff)
+
+By having your resourceTypes, traits, schemas, and examples namespaced, you are able to prevent collisions and only use the components of a library that you choose - keeping your specification clean, and your code reusable.
 
 ###Overlays
 Overlays... (a RAML file that extends another RAML file but in a strict Interface sense)
@@ -880,9 +1004,18 @@ Blah:
 
 ![Picture Needed](image_needed.png)
 
+###Annotations
+A new feature in RAML 1.0, annotations are designed to allow for vendor specific properties to be placed within your RAML specification, or preferably within an overlay that pulls in your standardized specification.
+
+	CODE
+
+Blah:
+
+![Picture Needed](image_needed.png)
+
 
 ##4. Advanced Features
-###Models
+###Data Types
 	Can be used in place of schemas
 ###Dynamic Properties
 	first match
@@ -902,7 +1035,6 @@ Along with the release of RAML 1.0, however, MuleSoft also contributed a new too
 
 Because of the unique capabilities of this tool, we'll first take a look at all it offers, and then jump into some of the most popular tools segemented by capability (tools for designing your API, building your API, testing your API, documenting your API, and sharing your API).
 
-####API WorkBench
 ###Design
 ####API Notebook
 ###Build
