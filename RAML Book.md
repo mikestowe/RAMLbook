@@ -153,7 +153,7 @@ Creating resources in RAML is as easy as writing down it's path.  For example, i
 	
 Just like that we now have a `/users` resource:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_001.tiff)
 	
 To add a description to our `/users` resource, we simply follow YAML conventions and add the `description` property:
 
@@ -167,7 +167,7 @@ To add a description to our `/users` resource, we simply follow YAML conventions
 
 And once again, just like that, the description is added to our resource:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_002.tiff)
 	
 ####URI Properties
 To create more complex resources, or resources that utilize names or IDs, you can take advantage of URI properties, or placeholders within the resource.  To do this, simply tell the spec that your ID is a URI Property by placing curly brackets around it, like so:
@@ -176,7 +176,7 @@ To create more complex resources, or resources that utilize names or IDs, you ca
 	
 Just like that you can setup IDs or dynamic resource paths:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_003.tiff)
 
 	MULTIPLE URI PROPERTIES
 
@@ -212,7 +212,7 @@ For example, if we look at this RAML snippet:
 			
 You'll notice that the resource `/users` has a `GET` method, however the child resource `/{id}` does not.  
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_004.tiff)
 
 Again, this is because the child resource only inherits the path and not the properties of its parent.
 
@@ -229,7 +229,7 @@ Just as creating resources was as simple as declaring the path, adding methods i
 		
 Which in turn creates:
 
-![Picture Needed](image_needed.png) here
+![Picture Needed](images/raml_005.tiff) here
 
 RAML supports `GET`, `PUT`, `PATCH`, `POST`, `DELETE`, `TRACE`, `HEAD`, and `OPTIONS` although you'll want to be careful which ones you use as not all are official methods, and not all are supported by all servers.
 
@@ -279,7 +279,7 @@ For each `queryParameter` you will simply need to declare the name of the parame
 				
 And as simple as that, we now have the `status` query parameter showing up in our API documentation:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_006.tiff)
 	
 Of course, there is much more you can do with the query parameter, such as providing it's display name, a description, an example, the default value, whether or not it is required, and even it's type:
 
@@ -372,7 +372,7 @@ Of course, if we'd like we can share both by using the corresponding properties:
 	
 By providing both this lets us share with our users what the request should look like, as well as the specific information about what the request needs to include and how it should be formatted, something that again can be provided to them via your documentation and also used to generate auto-validating SDKs:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_007.tiff)
 	
 Of course, your API may support numerous content-types, which works fairly well with RAML, as all you have to do to add an additional content type is, well, add it (I'm removing schemas in this case to keep it short, but of course RAML supports multiple content-types having schemas):
 
@@ -401,7 +401,7 @@ Of course, your API may support numerous content-types, which works fairly well 
 						
 As you can see, we now have multiple content types to choose from shown in our documentation:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_008.tiff)
 	
 What's important to remember is that schemas describe the request content, where-as examples are "real-life demos" of what that formatted content would look like when being sent to your server via the content-type body.
 					
@@ -463,6 +463,10 @@ To setup responses for each status, use the status code as the key for the respo
 				
 				500:
 					# 500 - Server Error
+					
+Which as you can see adds them to our API documentation for that method:
+
+![Picture Needed](images/raml_009.tiff)
 
 ####Headers
 Headers are used to transmit important information about the response, such as the location of newly created object.
@@ -481,6 +485,8 @@ Adding headers is as simple as using the `headers` property within the status co
 					headers:
 						location:
 							#location data will go here
+				401:
+					# Not Authorized
 							
 Once you have defined the header by the property name you can add the following properties to each header property as necessary:
 
@@ -506,10 +512,12 @@ For example:
 							displayName: Location
 							type: string
 							example: http://http://api.mydomain.com/users/109
+				401:
+					# Not Authorized
 
 As you can see, this is then translated into our documentation for us:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_010.tiff)
 
 ####Content Types
 RAML also lets you define not just one, but multiple content types for each HTTP Status Response code.
@@ -589,7 +597,7 @@ Another option, of course, is to include your example using `!include` which we 
 
 Now if we look at the API Console we can see multiple content types (one for JSON and one for XML) as well as the example response data for each:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_011.tiff)
 
 ####Schemas
 Schemas work very similarly to examples, except you need to use the `schema` property, like so:
@@ -633,7 +641,7 @@ As you can see in the above example, RAML lets you explain your content types wi
 
 Now if we look in the API Console, while we still have the example, we can now see the schema for the application/json response body:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_012.tiff)
 
 ####Hypermedia
 One of the most popular feature requests for RAML 1.0 was added support for hypermedia, or dynamically driven linking formats.
@@ -724,35 +732,44 @@ Another huge advantage of resourceTypes is that it lets you define all your poss
 	 		description: this is a delete method
 	 		responses:
 	 			202:
-	 				header:
+	 				headers:
 	 					
 	 			304:
-	 				application/json:
-	 					example: |
-	 						{"Response" : "Nothing Mofidied"}
+	 				body:
+	 					application/json:
+	 						example: |
+	 							{"Response" : "Nothing Mofidied"}
 	 			401:
-	 				application/json:
-	 					example: |
-	 						{"Response" : "Not Authorized"}
+	 				body:
+	 					application/json:
+	 						example: |
+	 							{"Response" : "Not Authorized"}
 	 			405:
-	 				application/json:
-	 					example: |
-	 						{"Response" : "Method Not Allowed"}
+	 				body:
+	 					application/json:
+	 						example: |
+	 							{"Response" : "Method Not Allowed"}
 	 			415:
-	 				application/json:
-	 					example: |
-	 						{"Response" : "Content-type Not Recognized"}
+	 				body:
+	 					application/json:
+	 						example: |
+	 							{"Response" : "Content-type Not Recognized"}
 	 			500:
-	 				application/json:
-	 					example: |
-	 						{"Response" : "Internal Server Error"}
+	 				body:
+	 					application/json:
+	 						example: |
+	 							{"Response" : "Internal Server Error"}
 	
 	/users:
 		type: item
 		
 You'll noticed that the `/users` doesn't actually have any properties assigned to it other than `type: item`, but because it is of a known resourceType, all of the information will be automatically pulled into it for us:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_013.tiff)
+
+Including method properties:
+
+![Picture Needed](images/raml_014.tiff)
 
 ####Declaring Optional Methods	
 Of course, chances are you do not want ALL the information to be pulled in all of the time, in which case you can make methods OPTIONAL by adding a `?` to the end of the method name, like so:
@@ -781,7 +798,7 @@ Of course, chances are you do not want ALL the information to be pulled in all o
 
 Now the `/resource` does not have ANY properties being pulled in because we have declared all the methods to be optional, and to only be pulled in if explicitly called by the resource.
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_015.tiff)
 	
 But the second we call in one of the properties, we now have it's description and any underlying properties that we would delcared:
 	
@@ -791,7 +808,7 @@ But the second we call in one of the properties, we now have it's description an
 
 As you can see here:
 
-![Picture Needed](image_needed.png)
+![Picture Needed](images/raml_016.tiff)
 	
 ####Placeholders within ResourceTypes
 Just as you probably do not want all methods in every resource, chances are you probably want different descriptions, examples, properties, and other data within your resources.
