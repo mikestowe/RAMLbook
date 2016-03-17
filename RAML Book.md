@@ -112,16 +112,16 @@ In November 2015, MuleSoft released the API Workbench as an opensource tooling t
 
 To get started with the API Workbench, you'll need to get [Github’s Atom](https://atom.io/docs/v0.194.0/getting-started-installing-atom) on your system first. After you've done the installation, installing the API Workbench should be fairly simple. The easiest way is to use Atom's package manager that is installed by default. Go to `Preferences` in Atom's main menu (on Mac that is called Atom).
 
-[put in image for the menu]
+[aw-preferences image]
 
 
 That opens an additional `Settings` tab with an option to `Install` new plugins. Choose that option and simple type in `api-workbench` to search for the plugin.
 
-[put in image with setting and the search result]
+[aw-install image]
 
 Now click on the `Install` button in your search result and wait until the installation process is done. This process is happening in the background and you will not get notified when finished. So just wait until you will find the `api-workbench` plugin under the list of installed packages.
 
-[put in image for installed packages]
+[aw-installed image]
 
 #### Create your First RAML
 
@@ -129,7 +129,7 @@ After installing the API Workbench you should also have an additional menu entry
 
 To create a project from scratch, simple click on `Create RAML Project` and fill in all necessary information before confirming using the `Create` button.
 
-[put in image for the Create RAML Project dialog]
+[aw-createproject image]
 
 Depending on the information you put in, and let us assume the information are the same as in the image above, you should get a single **api.raml** file with the following content:
 
