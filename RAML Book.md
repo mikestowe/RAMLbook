@@ -102,7 +102,41 @@ In short, RAML let's you do more, faster, with less.
 
 ## 2. Getting Started
 
-### Using the API Designer
+### API Designer
+
+MuleSoft's API Designer is a web application specifically dedicated to designing and writing an API definition in RAML. You can either install and host your own instance of the API Designer or more elegantly, without any hustle to provide or use your own resources, use the Anypoint Platform that comes with a free subscription to design APIs using the API Designer.
+
+The following sections illustrate how to use the API Designer. For this purpose we will show how you sign up for a free account on the Anypoint Platform, before going into more details to start your first API. If you want to install your own instance, you can go through the [installation guide](https://github.com/mulesoft/api-designer#running-locally) available in the API Designer Github repository.
+
+#### Signup for an Account on the Anypoint Platform
+
+As mentioned previously, you do not have to install and host your own instance of the API Designer to start designing APIs using. You can easily sign up for a free account on MuleSoft's Anypoint Platform. This not only come with its hosted version of the API Designer, but additionally you are able to create multiple APIs or multiple versions of an API in the same environment; and a lot more. This gives you a huge advantage compared to the standalone version of the API Designer that does not have these features.
+
+To sign up for an account, please go to https://anypoint.mulesoft.com/, press on the `Sign up` button and fill in your information into the form.
+
+[ad-signup image]
+
+After you signed up, you are able to sign in and start to play around. The Anypoint Platform does not only provide an environment to design APIs, but also to manage and run them. Although, in this section we only concentrate on the design part.
+
+#### Creating your first API
+
+After you logged into your account, to create your first API you only have to follow these simple steps:
+
+1. Press on the `API` menu on the top
+2. Press on the `Add new API` button in the next window and fill in the mandatory information into the form
+3. Confirm and press `Add` to create your first API
+
+Following these three simple steps you should end up in your API Portal (see image below).
+
+[ad-apiportal image]
+
+Use the first box and click on `Define API in API designer` to start designing your API in RAML.
+
+#### Using the API Designer
+
+The API Designer is divided into four different parts (see image below): a file explorer to navigate or organize multiple files associated to your API, the editor to design your API in RAML, a shelf that gives additional support to design your API, and the API Console to visualize the content of your API.
+
+[ad-apidesigner-overview image]
 
 ### API Workbench
 
@@ -123,7 +157,7 @@ Now click on the `Install` button in your search result and wait until the insta
 
 [aw-installed image]
 
-#### Create your First RAML
+#### Creating your first RAML
 
 After installing the API Workbench you should also have an additional menu entry in the `Packages` menu called `API Workbench`. It contains different features that will support developers with not only creating a RAML project from scratch, but also to obtain popular community APIs from an external Github repository; and more.
 
@@ -141,24 +175,25 @@ baseUri: http://api.samplehost.com
 ```
 
 ### RAML Basics
+
 The nice thing about using a tool like the API Designer is that it will automatically prefill the required aspects of your RAML file for you.  These are the:
 	- RAML and version declaration
 	- Your API Title
 	- The BaseUri for your API
 	- The version of your API (ie version 1, 2, 4, etc)
 
-To start the file off, we'll simply add `#RAML` followed by the version of RAML that we are using, in this case 1.0:
+To start the file off, we'll simply add `#%RAML` followed by the version of RAML that we are using, in this case 1.0:
 
 	#%RAML 1.0
 
-This tells the parser that this should be handled as a RAML file, and also what version of RAML so that the parser knows how to handle the different types of functionality (for example, many features available in RAML 1.0 are not available in RAML 0.8 - this tells the parser to take adavntage of these features).
+This tells the parser that this should be handled as a RAML file, and also what version of RAML so that the parser knows how to handle the different types of functionality (for example, many features available in RAML 1.0 are not available in RAML 0.8 - this tells the parser to take advantage of these features).
 
 Once we have declared the file as a RAML file (as shown above) the next thing we need to do is give our API a title, such as `My API`:
 
 	#%RAML 1.0
 	title: My API
 
-So far this has been pretty easy, right?  The next thing to add is our baseUri, or what the root domain and path for the API is.  This will be used by the majority of the tooling to tell your users where to make the calls, and even help them test their calls.  To add the baseUri, simply add it in like so:
+So far this has been pretty easy, right?  The next thing to add is our `baseUri`, or what the root domain and path for the API is.  This will be used by the majority of the tooling to tell your users where to make the calls, and even help them test their calls.  To add the `baseUri`, simply add it in like so:
 
 	#%RAML 1.0
 	title: My API
@@ -176,10 +211,106 @@ We do this by adding in the `version` property like so:
 
 And there you go!  Just like that you have started off your RAML file.  The next part is adding in resources, methods, and properties - which the next few sections will walk you through.  The nice thing is, each aspect of RAML is as easy, and as clear-cut as the four items we declared above.
 
-####Adding in a Default Media Type
-	Stuff goes here
+### Adding in a Default Media Type
 
-####Adding in Available Protocols
+Often, an API takes or returns a specific set of media types that 1) are the same across your API or 2) have the same information defined. Let us go through an example for the former case first.
+
+```yaml
+#%RAML 1.0
+title: My API
+baseUri: http://api.mydomain.com
+version: 1
+
+/users:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            schema:
+            # additional information about the response
+  post:
+    body:
+      application/json:
+        schema:
+        # additional information about the request
+  /{id}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              schema:
+              # additional information about the response
+```
+
+By looking closer at the example above, it turns out that the API only uses the media type `application/json` to describe all of its request or responses. To reduce the amount of redundant information and to make this specific media type default across your API, RAML provides the `mediaType` property at the root-level of your API. Using that, our modified example would look like the following:
+
+```yaml
+#%RAML 1.0
+title: My API
+baseUri: http://api.mydomain.com
+version: 1
+
+mediaType: application/json
+
+/users:
+  get:
+    responses:
+      200:
+        body:
+          schema:
+          # additional information about the response
+  post:
+    body:
+      schema:
+      # additional information about the request
+  /{id}:
+    get:
+      responses:
+        200:
+          body:
+            schema:
+            # additional information about the response
+```
+
+In some cases, of course, you want to add an additional media type or not use the default. That can be achieved by simply define the media type explicitly on the request or response; where the default media type will be overridden and in case it is still required has to be defined explicitly again.
+
+```yaml
+#%RAML 1.0
+title: My API
+baseUri: http://api.mydomain.com
+version: 1
+
+mediaType: application/json
+
+/users:
+  get:
+    responses:
+      200:
+        body:
+          application/xml: # overrides default media type
+            schema:
+            # additional information about the response
+          application/json: # needs to be mentioned explicitly again
+            schema:
+            # additional information about the response
+  post:
+    body:
+      schema:
+      # additional information about the request
+  /{id}:
+    get:
+      responses:
+        200:
+          body:
+            schema:
+            # additional information about the response
+```
+
+How simple and handy is that, right? You do not need to specify the media type within every body definition of a request or response. That greatly reduce the redundant information in your API definition and makes it very easy to change from one standard media type to another.
+
+### Adding in Available Protocols
 	Stuff goes here
 
 ###Creating Resources
@@ -272,7 +403,7 @@ Which in turn creates:
 
 ![](pngs/raml_005.png)
 
-RAML supports `GET`, `PUT`, `PATCH`, `POST`, `DELETE`, `TRACE`, `HEAD`, and `OPTIONS` although you'll want to be careful which ones you use as not all are official methods, and not all are supported by all servers.
+RAML supports `GET`, `PUT`, `PATCH`, `POST`, `DELETE`, `HEAD`, and `OPTIONS` although you'll want to be careful which ones you use as not all are official methods, and not all are supported by all servers.
 
 It's also important to understand the difference between each of these methods as they all have VERY specific purposes with careful and well established standards surrounding them.  Refer to my other book, *[Undisturbed REST: a Guide to Designing the Perfect API](http://www.mikestowe.com/books)* if you're not sure how to properly use them.
 
