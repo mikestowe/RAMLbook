@@ -503,10 +503,6 @@ Of course, there is much more you can do with the query parameter, such as provi
 			type: string
 
 
-Need to add:
-
-	validWhen/ requiredWhen
-
 By providing this additional information, you are empowering your users as this information can be passed through to them in your documentation, as well as taken advantage of by other tools that parse your API's RAML spec.
 
 ####Form Data
