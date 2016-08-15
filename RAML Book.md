@@ -945,6 +945,7 @@ You can learn more about descriptive error formats and their usage in my other b
 Now that you have an idea of what your API resources will look like, RAML let's you setup includes and templates to allow for both code reuse and the implementation of design patterns.  This not only ensures that your API is consistent throughout, but also lets you organize your API to keep it easily readable by those working with the RAML spec.
 
 It's important to remember that the benefits of code reuse and design patterns are both immediate and long-term.  While you may feel that you can build a consistent API, the patterns ensure consistency.  This especially becomes important as your API grows and newer developers start working with it - often times trying to implement new resources or methods without having a strong and full understanding of your entire API.
+
 ###Includes
 The easiest of the templates to setup, the `!include` function lets you pull in external files, whether they be another RAML file, example response files, or schemas.
 
@@ -1256,13 +1257,11 @@ As you can see, now the resourceType users.collection has been applied to our re
 By having your resourceTypes, traits, schemas, and examples namespaced, you are able to prevent collisions and only use the components of a library that you choose - keeping your specification clean, and your code reusable.
 
 ###Overlays & Extentions
-
 Overlays and Extensions allow another type of code reuse, by letting you create one specification and then "overlay" it with another to meet specific conditions or requirements without having to duplicate or modify your original spec.
 
 For example, if your company has development, QA, and production environments - the configurations for each environment (such as the BaseUri) might be different.  Before, in RAML 0.8, to accomplish this you would need to duplicate your specification for each environment - increasing the odds of bugs or differences between the different "environment specific" specifications.  But with RAML 1.0, you only need to create a small snippet of RAML that you can then use to "overlay" the single specification the three environments will share - helping ensure the overall specification is the same in all environments.
 
 #### Overlays (Add in Titles, Descriptions, Etc.)
-
 Overlays are used to provide additional information such as descriptions or annotations to an existing specification without changing functionality.  To create an overlay, we simply append `#%RAML 1.0` with the keyword `Overlay` and then reference the RAML specification it extends like so:
 
 	#%RAML 1.0 Overlay
@@ -1295,7 +1294,6 @@ Trying to do so instead returns back an error:
 ![Picture Needed](image_needed.png)
 
 #### Extensions (Modify Functionality)
-
 Instead, to change functionality we will want to use the `Extension` keyword, explicitly telling the RAML parser that we want to overwrite functionality as well.   This will let us override resources, methods, and even the baseUri - letting us cater to the requirements of each of our different environments such as dev, QA, and production - as well as different aspects of functionality our API may make available for partners or internal developers.
 
 	#%RAML 1.0 Extension
