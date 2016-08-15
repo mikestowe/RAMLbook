@@ -1312,7 +1312,6 @@ Because annotations are vendor specific, you will won't see any changes in the A
 ###Using Existing Schemas
 
 
-
 ##5. Security
 ###Basic Auth
 ###Digest Auth
@@ -1331,6 +1330,22 @@ Because of the unique capabilities of this tool, we'll first take a look at all 
 ###Design
 ####API Designer
 ####API WorkBench
+####Editor Plugins
+#####vim-raml
+TBA
+
+#####RAML Sublime Editor
+TBA 
+
+#####RAML Syntax Highlighting for Visual Studio
+TBA
+
+####More Tools
+######Restlet Studio
+TBA
+
+######Stoplight
+TBA
 
 ###Build
 To assist in building your API, there are several open-source projects to choose from.  While there are far too many languages and projects to list, here are just a few of the more popular projects to-date.
@@ -1346,11 +1361,25 @@ With Restlet Framework's powerful routing and filtering capabilities, unified cl
 #####RAML for JAX-RS
 The goal of RAML for JAX-RS is to provide a set of tools to work with these technologies in a way of being able to scaffold a JAVA + JAX-RS application based on an existing RAML API definition (Code Generation), or its roundtrip, generate the RAML API definition based on an existing JAVA + JAX-RS application (Documentation).
 
-####.NET
-	NEEDS TO BE FILLED OUT
+#####Spring MVC - RAML Spec Synchroniser
+TBA
+
+#####RAML Maven Plugin
+TBA 
+
+#####Play-RAML
+TBA
 
 ####PHP
-	NEEDS TO BE FILLED OUT
+#####PSX Framework
+TBA
+
+#####API2Symfony Bundle
+TBA
+
+#####Gointegro
+TBA
+
 ####Python
 #####FLASK-RAML
 Flask-RAML (REST API Markup Language) generates an API server with parameter conversion, response encoding, and examples.
@@ -1358,8 +1387,9 @@ Flask-RAML (REST API Markup Language) generates an API server with parameter con
 #####raml-python
 RAML-python uses NodeJS to generate a framework for your API in Python.
 
-####Ruby
-	NEEDS TO BE FILLED OUT
+#####RAMSES
+TBA
+
 	
 ####Integration Frameworks
 #####MuleSoft
@@ -1390,6 +1420,10 @@ TBA
 
 #####SmartBear
 SmartBear offers a large suite of testing tools for your API, letting you pull in your RAML spec to identify latency/ speed issues, errors, and verify response data.  Along with API Readiness tools, they also offer API Virtualization, Continuous Integration tooling, and Performance testing.  Learn more about SmartBear at http://smartbear.com/
+
+####Other Tools
+#####Paw
+TBA
 
 
 ###Document
