@@ -1596,12 +1596,24 @@ If you will be pulling in older schemas or examples from a RAML 0.8 API (or othe
 			- json
 			-xml
 			
+However, since we will be relying on Data Types for our API, we will omit the schemas and examples folders from our example structure.
+
 The key to the structure is ensuring that every aspect of your API has a place, and that you avoid clutter/ combinging too many things in the same place.  While this takes a little bit more work to setup, it will ensure your API will remain readable, and easy to modify as new developers join your team.
 
-Note - if you have a separate documentation/ technical writing team, you can also add in one more directory for docs - or the directory that will contain an overlay just for your technical writers to ensure that there are no accidental changes to your master or source specification.
+And if you have a separate documentation/ technical writing team, you can also add in one more directory for docs - or the directory that will contain an overlay just for your technical writers to ensure that there are no accidental changes to your master or source specification.
 
 	- root
 		- docs
+		
+This means that for this RAML definition, our structure will look like:
+
+	- root
+		- source
+		- libraries
+			- global
+		- docs
+		
+We will use the `root` folder to store our overlays for easy consumption, the `source` directory to host our master or source specification, the `libraries` directory to store our library files, including a directory for shared or global libraries, and finally the `docs` folder for our docs team to be able to go in and update the documentation without worrying about functionality.
 
 			
 ###Creating our Libraries
