@@ -170,12 +170,12 @@ To create a project from scratch, simple click on `Create RAML Project` and fill
 
 Depending on the information you put in, and let us assume the information are the same as in the image above, you should get a single **api.raml** file with the following content:
 
-```yaml
-#%RAML 1.0
-title: New API
-version: v1
-baseUri: http://api.samplehost.com
-```
+
+	#%RAML 1.0
+	title: New API
+	version: v1
+	baseUri: http://api.samplehost.com
+
 
 ### RAML Basics
 
@@ -218,98 +218,105 @@ And there you go!  Just like that you have started off your RAML file.  The next
 
 Often, an API takes or returns a specific set of media types that 1) are the same across your API or 2) have the same information defined. Let us go through an example for the former case first.
 
-```yaml
-#%RAML 1.0
-title: My API
-baseUri: http://api.mydomain.com
-version: 1
+	
 
-/users:
-  get:
-    responses:
-      200:
-        body:
-          application/json:
-            schema:
-            # additional information about the response
-  post:
-    body:
-      application/json:
-        schema:
-        # additional information about the request
-  /{id}:
-    get:
-      responses:
-        200:
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+
+	/users:
+	  get:
+    	responses:
+      	  200:
+        	body:
+          	  application/json:
+            	schema:
+            	  # additional information about the response
+            	  
+    post:
+      body:
+        application/json:
+          schema:
+          # additional information about the request
+          
+    /{id}:
+      get:
+        responses:
+          200:
           body:
             application/json:
-              schema:
-              # additional information about the response
-```
+                schema:
+                # additional information about the response
+                
 
 By looking closer at the example above, it turns out that the API only uses the media type `application/json` to describe all of its request or responses. To reduce the amount of redundant information and to make this specific media type default across your API, RAML provides the `mediaType` property at the root-level of your API. Using that, our modified example would look like the following:
 
-```yaml
-#%RAML 1.0
-title: My API
-baseUri: http://api.mydomain.com
-version: 1
 
-mediaType: application/json
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
 
-/users:
-  get:
-    responses:
-      200:
-        body:
-          schema:
-          # additional information about the response
-  post:
-    body:
-      schema:
-      # additional information about the request
-  /{id}:
-    get:
-      responses:
-        200:
-          body:
-            schema:
-            # additional information about the response
-```
+	mediaType: application/json
+
+	/users:
+	  get:
+        responses:
+          200:
+            body:
+              schema:
+                # additional information about the response
+                
+      post:
+    	body:
+      	  schema:
+      	    # additional information about the request
+      	    
+      /{id}:
+        get:
+          responses:
+            200:
+              body:
+                schema:
+                  # additional information about the response
+
 
 In some cases, of course, you want to add an additional media type or not use the default. That can be achieved by simply define the media type explicitly on the request or response; where the default media type will be overridden and in case it is still required has to be defined explicitly again.
 
-```yaml
-#%RAML 1.0
-title: My API
-baseUri: http://api.mydomain.com
-version: 1
 
-mediaType: application/json
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
 
-/users:
-  get:
-    responses:
-      200:
+	mediaType: application/json
+
+	/users:
+	  get:
+        responses:
+          200:
+            body:
+              application/xml: # overrides default media type
+                schema:
+                  # additional information about the response
+              application/json: # needs to be mentioned explicitly again
+                schema:
+                  # additional information about the response
+                  
+      post:
         body:
-          application/xml: # overrides default media type
-            schema:
-            # additional information about the response
-          application/json: # needs to be mentioned explicitly again
-            schema:
-            # additional information about the response
-  post:
-    body:
-      schema:
-      # additional information about the request
-  /{id}:
-    get:
-      responses:
-        200:
-          body:
-            schema:
-            # additional information about the response
-```
+          schema:
+            # additional information about the request
+            
+      /{id}:
+        get:
+          responses:
+            200:
+              body:
+                schema:
+                  # additional information about the response
+                  
 
 How simple and handy is that, right? You do not need to specify the media type within every body definition of a request or response. That greatly reduce the redundant information in your API definition and makes it very easy to change from one standard media type to another.
 
