@@ -321,7 +321,28 @@ In some cases, of course, you want to add an additional media type or not use th
 How simple and handy is that, right? You do not need to specify the media type within every body definition of a request or response. That greatly reduce the redundant information in your API definition and makes it very easy to change from one standard media type to another.
 
 ### Adding in Available Protocols
-	Stuff goes here
+
+Just as you can define the available media types (content-types) for your API, you can also explicitly set the available protocols - most commonly HTTP or HTTPS.  This means that you can require a secure connection (HTTPS), make HTTP/S available, or add in additional protocols for your REST/ REST-like API across different protocols (although, RAML is based off of HTTP style APIs using HTTP methods and status codes).
+
+To set the available protocols for the API simply add in the `protocols` property and define your protocols within a YAML Array like so:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+	
+	protocols: [HTTP, HTTPS]
+	
+Keep in mind that using the `protocols` property will override the protocol used in the baseUri property.  In other words, the following would require HTTPS even though the baseUri uses HTTP:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+	
+	protocols: [HTTPS]
+	
+Since this is an optional property, you really only need to use it when you do support multiple protocols, and want to explicitly share all the protocols you support.
 
 ###Creating Resources
 Creating resources in RAML is as easy as writing down it's path.  For example, if we wanted to create an API with a `/users` resource, all we would need to type is `/users:` like so:
