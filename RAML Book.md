@@ -1,4 +1,7 @@
-#RAML 1.0 BOOK
+#Let's Get Ready to RAML
+#### Using RAML 1.0 to Design,Build, Test, Document, and Share Your API
+
+------
 
 ##1. Designing an API is Hard
 It sure doesn't seem like it at first, but honestly, the hardest part of building an API - is not writing the code - but designing it.  Creating an API that your users will love, and that you will be able to continue to build upon, adding in more and more functionality as your platform grows.
@@ -657,7 +660,7 @@ The other challenge with supporting hypermedia is the number of hypermedia speci
 
 However, because hypermedia is represented in the body of the response, you are still able to describe a static representation of what types of links MAY be returned, as well as what hypermedia format you are returning.
 
-For example, if we are using HAL (content type: application/json+hal) we can represent an example of its usage like so:
+For example, if we are using HAL (content type: application/hal+json) we can represent an example of its usage like so:
 
 	/users:
 		post:
@@ -996,22 +999,34 @@ As you can see, now the resourceType users.collection has been applied to our re
 By having your resourceTypes, traits, schemas, and examples namespaced, you are able to prevent collisions and only use the components of a library that you choose - keeping your specification clean, and your code reusable.
 
 ###Overlays
-Overlays... (a RAML file that extends another RAML file but in a strict Interface sense)
+Overlays allow another type of code reuse, by letting you create one specification and then "overlay" it with another to meet specific conditions or requirements without having to duplicate or modify your original spec.
+
+For example, if your company has development, QA, and production environments - the configurations for each environment (such as the BaseUri) might be different.  Before, in RAML 0.8, to accomplish this you would need to duplicate your specification for each environment - increasing the odds of bugs or differences between the different "environment specific" specifications.  But with RAML 1.0, you only need to create a small snippet of RAML that you can then use to "overlay" the single specification the three environments will share - helping ensure the overall specification is the same in all environments.
 
 	CODE
 
-Blah:
+As you can see, in this case we are only providing the information needed to "overlay" or expand upon the existing specification:
 
 ![Picture Needed](image_needed.png)
+
 
 ###Annotations
-A new feature in RAML 1.0, annotations are designed to allow for vendor specific properties to be placed within your RAML specification, or preferably within an overlay that pulls in your standardized specification.
+Also new in RAML 1.0, annotations are designed to allow for vendor specific properties to be placed within your RAML specification, or preferably within an overlay that pulls in your standardized specification.
+
+This means that your RAML specification can be expanded upon to provide any unique information vendors or third service solutions might require, but in a way that doesn't impact the rest of your specification - and can even be separated from your primary RAML specification.
+
+To use annotations, we need to first declare the annotations within our spec:
+
+	CODE
+	
+Once they have been declared, we can now place them in our resources and methods like any other property, denoting they are an annotation by surrounding the key in parenthesis, like so:
 
 	CODE
 
-Blah:
+Because annotations are vendor specific, you will won't see any changes in the API Console, but they are now avaialble for the solutions you provide them to (again preferably in an overlay).
 
-![Picture Needed](image_needed.png)
+	IS THIS TRUE??? VERIFY.
+	![Picture Needed](image_needed.png)
 
 
 ##4. Advanced Features
@@ -1019,7 +1034,6 @@ Blah:
 	Can be used in place of schemas
 ###Dynamic Properties
 	first match
-###Overloading
 ###Security
 ####Basic Auth
 ####Digest Auth
@@ -1036,8 +1050,12 @@ Along with the release of RAML 1.0, however, MuleSoft also contributed a new too
 Because of the unique capabilities of this tool, we'll first take a look at all it offers, and then jump into some of the most popular tools segemented by capability (tools for designing your API, building your API, testing your API, documenting your API, and sharing your API).
 
 ###Design
-####API Notebook
+####API Designer
+####API WorkBench
+
 ###Build
+To assist in building your API, there are several open-source projects to choose from.  While there are far too many languages and projects to list, here are just a few of the more popular projects to-date.
+ 
 ####JavaScript
 #####Osprey
 Osprey is a JavaScript framework for rapidly building applications that expose RAML APIs. It’s based on Node and Express.
@@ -1049,15 +1067,20 @@ With Restlet Framework's powerful routing and filtering capabilities, unified cl
 #####RAML for JAX-RS
 The goal of RAML for JAX-RS is to provide a set of tools to work with these technologies in a way of being able to scaffold a JAVA + JAX-RS application based on an existing RAML API definition (Code Generation), or its roundtrip, generate the RAML API definition based on an existing JAVA + JAX-RS application (Documentation).
 
-#### .NET
+####.NET
 	NEEDS TO BE FILLED OUT
 
+####PHP
+	NEEDS TO BE FILLED OUT
 ####Python
 #####FLASK-RAML
 Flask-RAML (REST API Markup Language) generates an API server with parameter conversion, response encoding, and examples.
 
 #####raml-python
 RAML-python uses NodeJS to generate a framework for your API in Python.
+
+####Ruby
+	NEEDS TO BE FILLED OUT
 
 ###Test
 ####Community Projects
@@ -1197,7 +1220,7 @@ Hopefully after reading this book you have a solid foundation of what RAML is, a
 
 I would encourage you to continue learning about how RAML can benefit you, as well as read up on API Best practices to ensure that your API provides the best experience to your users as possible, while also staying flexible enough to meet the demands of your business and platform for the next several years.
 
-You can find more information and resources on RAML at **[http://raml.org]()**
+You can find more information and resources on RAML at **[http://raml.org]()** and on my own website, **[http://mikestowe.com]()**.
 
 For more information on API Design and Best Practices, I would urge you to check out my book **[Undisturbed REST: a Guide to Designing the Perfect API](http://www.mikestowe.com/books)** available for download at [http://mulesoft.com/restbook]() or for purchase at Amazon.com.
 
