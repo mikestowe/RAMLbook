@@ -965,7 +965,7 @@ Another huge advantage of resourceTypes is that it lets you define all your poss
 	version: 1
 
 	resourceTypes:
-	 - collection:
+	  collection:
 	 	get:
 	 		description: this is a get method
 
@@ -1023,7 +1023,7 @@ Of course, chances are you do not want ALL the information to be pulled in all o
 	version: 1
 
 	resourceTypes:
-	 - collection:
+	  collection:
 	 	get?:
 	 		description: this is a get method
 
@@ -1068,7 +1068,7 @@ Placeholders within RAML are denoted by double less than and greater than signs,
 	version: 1
 
 	resourceTypes:
-	 - collection:
+	  collection:
 	    get:
 	      description: this is a get method
 	      responses:
