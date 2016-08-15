@@ -963,4 +963,8 @@ You can also learn more with the full edition of this book, RAML 1.0: Design, Bu
 ###Have Questions?
 Check out the @RAMLAPI twitter handle, or post your questions in the RAML.org forums
 
+<<<<<<< HEAD
 [http://raml.org](http://raml.org)
+=======
+[http://raml.org](http://raml.org)
+>>>>>>> 8200d4f47953f4d3fb8d2f611999101e934d6005

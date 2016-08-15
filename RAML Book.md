@@ -8,8 +8,8 @@ It sure doesn't seem like it at first, but honestly, the hardest part of buildin
 
 Perhaps the biggest challenge is that we're not very good at long-term API design, or as Roy Fielding, the creator of REST, states:
 
->Unfortunately, people are fairly good at short-term design, and usually awful at long-term design. 
-	
+>Unfortunately, people are fairly good at short-term design, and usually awful at long-term design.
+
 The problem comes in that we often are thinking of a specific problem that WE want to solve, but are building an API that needs to be able to solve hundreds of thousands of problems.  To meet our customers' or end users' needs, and not just our own.
 
 Take for example the Constant Contact API.  It was developed to provide developers the functionality they needed to enable email marketing campaigns within their own applications - and eventually to enable simplistic event reporting.
@@ -24,8 +24,8 @@ And when they use it, they will have a list of expectations:
  - It will be consistent throughout and adhere to standards
  - It will be easy to maintain and won't just "stop working"
  - It will last for years without them having to rewrite their code
- 
- 
+
+
 #### API is Easy to Use and Understand
 Like a good user interface, it's important to understand that the ease of use of your API is key to it's success.  Businesses want to implement your API to take advantage of the benefits it would offer, whether it be accessing your customers, or adding new functionality to their service.  But as with any business decision, there is a cost-analysis - and unless you're a company like Google or SalesForce - there's a good chance that if they struggle to integrate with your API, they'll simply choose a competitors instead.
 
@@ -77,9 +77,10 @@ Again, versioning is something you should plan for, but something you'll also wa
  - Your platform has completely changed (ie you "pivoted" your application)
  - Your users are demanding a newer format (such as REST when you support only SOAP)
  - Or your API is no longer extensible (what we are trying to avoid here)
- 
+
 
 ###Did I Mention: Designing an API is Hard
+
 As you can see, there is a lot that goes into designing an API.  Like a legal contract, once this contract is released it is VERY difficult to go back and start changing it.  There are just too many dependencies, which means ultimately if not designed properly you'll find yourself having to version, and costing yourself far more than it would just to do it the right way - the first time.
 
 Thankfully, there is a way to design your API in such a way that you can visually see what it will look like, use design patterns and templates to ensure it is consistent, get invaluable user and client feedback, and even generate documentation, test scripts, and SDKs for it!  
@@ -102,35 +103,106 @@ This ensures that you get the "most bang out of your buck."  In fact, the benefi
 
 In short, RAML let's you do more, faster, with less.
 
-##2. Getting Started
-###Using the API Designer
-###Installing API Workbench
-	STUFF NEEDS TO GO HERE
-###RAML Basics
+## 2. Getting Started
+
+### API Designer
+
+MuleSoft's API Designer is a web application specifically dedicated to designing and writing an API definition in RAML. You can either install and host your own instance of the API Designer or more elegantly, without any hustle to provide or use your own resources, use the Anypoint Platform that comes with a free subscription to design APIs using the API Designer.
+
+The following sections illustrate how to use the API Designer. For this purpose we will show how you sign up for a free account on the Anypoint Platform, before going into more details to start your first API. If you want to install your own instance, you can go through the [installation guide](https://github.com/mulesoft/api-designer#running-locally) available in the API Designer Github repository.
+
+#### Signup for an Account on the Anypoint Platform
+
+As mentioned previously, you do not have to install and host your own instance of the API Designer to start designing APIs using. You can easily sign up for a free account on MuleSoft's Anypoint Platform. This not only come with its hosted version of the API Designer, but additionally you are able to create multiple APIs or multiple versions of an API in the same environment; and a lot more. This gives you a huge advantage compared to the standalone version of the API Designer that does not have these features.
+
+To sign up for an account, please go to https://anypoint.mulesoft.com/, press on the `Sign up` button and fill in your information into the form.
+
+[ad-signup image]
+
+After you signed up, you are able to sign in and start to play around. The Anypoint Platform does not only provide an environment to design APIs, but also to manage and run them. Although, in this section we only concentrate on the design part.
+
+#### Creating your first API
+
+After you logged into your account, to create your first API you only have to follow these simple steps:
+
+1. Press on the `API` menu on the top
+2. Press on the `Add new API` button in the next window and fill in the mandatory information into the form
+3. Confirm and press `Add` to create your first API
+
+Following these three simple steps you should end up in your API Portal (see image below).
+
+[ad-apiportal image]
+
+Use the first box and click on `Define API in API designer` to start designing your API in RAML.
+
+#### Using the API Designer
+
+The API Designer is divided into four different parts (see image below): a file explorer to navigate or organize multiple files associated to your API, the editor to design your API in RAML, a shelf that gives additional support to design your API, and the API Console to visualize the content of your API.
+
+[ad-apidesigner-overview image]
+
+### API Workbench
+
+In November 2015, MuleSoft released the API Workbench as an opensource tooling that give developers a rich, full-featured integrated development environment (IDE) for designing, building, testing, documenting and sharing RESTful HTTP APIs. The core of the API Workbench is Github’s Atom a text editor that is designed to be deeply customizable and extensible to a full-featured IDE building a unique experience for every developer. The API Workbench, different from the API Designer, is an IDE that can be used locally which comes with a lot advantages such as an easier integration of version control and collaboration tools.
+
+#### Installing the API Workbench
+
+To get started with the API Workbench, you'll need to get [Github’s Atom](https://atom.io/docs/v0.194.0/getting-started-installing-atom) on your system first. After you've done the installation, installing the API Workbench should be fairly simple. The easiest way is to use Atom's package manager that is installed by default. Go to `Preferences` in Atom's main menu (on Mac that is called Atom).
+
+[aw-preferences image]
+
+
+That opens an additional `Settings` tab with an option to `Install` new plugins. Choose that option and simple type in `api-workbench` to search for the plugin.
+
+[aw-install image]
+
+Now click on the `Install` button in your search result and wait until the installation process is done. This process is happening in the background and you will not get notified when finished. So just wait until you will find the `api-workbench` plugin under the list of installed packages.
+
+[aw-installed image]
+
+#### Creating your first RAML
+
+After installing the API Workbench you should also have an additional menu entry in the `Packages` menu called `API Workbench`. It contains different features that will support developers with not only creating a RAML project from scratch, but also to obtain popular community APIs from an external Github repository; and more.
+
+To create a project from scratch, simple click on `Create RAML Project` and fill in all necessary information before confirming using the `Create` button.
+
+[aw-createproject image]
+
+Depending on the information you put in, and let us assume the information are the same as in the image above, you should get a single **api.raml** file with the following content:
+
+```yaml
+#%RAML 1.0
+title: New API
+version: v1
+baseUri: http://api.samplehost.com
+```
+
+### RAML Basics
+
 The nice thing about using a tool like the API Designer is that it will automatically prefill the required aspects of your RAML file for you.  These are the:
 	- RAML and version declaration
 	- Your API Title
 	- The BaseUri for your API
 	- The version of your API (ie version 1, 2, 4, etc)
 
-To start the file off, we'll simply add `#RAML` followed by the version of RAML that we are using, in this case 1.0:
+To start the file off, we'll simply add `#%RAML` followed by the version of RAML that we are using, in this case 1.0:
 
 	#%RAML 1.0
-	
-This tells the parser that this should be handled as a RAML file, and also what version of RAML so that the parser knows how to handle the different types of functionality (for example, many features available in RAML 1.0 are not available in RAML 0.8 - this tells the parser to take adavntage of these features).
+
+This tells the parser that this should be handled as a RAML file, and also what version of RAML so that the parser knows how to handle the different types of functionality (for example, many features available in RAML 1.0 are not available in RAML 0.8 - this tells the parser to take advantage of these features).
 
 Once we have declared the file as a RAML file (as shown above) the next thing we need to do is give our API a title, such as `My API`:
 
-	#%RAML 1.0	
+	#%RAML 1.0
 	title: My API
-	
-So far this has been pretty easy, right?  The next thing to add is our baseUri, or what the root domain and path for the API is.  This will be used by the majority of the tooling to tell your users where to make the calls, and even help them test their calls.  To add the baseUri, simply add it in like so:
+
+So far this has been pretty easy, right?  The next thing to add is our `baseUri`, or what the root domain and path for the API is.  This will be used by the majority of the tooling to tell your users where to make the calls, and even help them test their calls.  To add the `baseUri`, simply add it in like so:
 
 	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 Last but not least, we should declare what version of the API "My API" this is.  This will be used to help ensure developers know which version of the API they're using, as well as for all of your documentation.  This will also help you segment versions of your API for when you inevitably have to create a new version.
 
 We do this by adding in the `version` property like so:
@@ -139,15 +211,111 @@ We do this by adding in the `version` property like so:
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 And there you go!  Just like that you have started off your RAML file.  The next part is adding in resources, methods, and properties - which the next few sections will walk you through.  The nice thing is, each aspect of RAML is as easy, and as clear-cut as the four items we declared above.
 
-####Adding in a Default Media Type
+### Adding in a Default Media Type
+
+Often, an API takes or returns a specific set of media types that 1) are the same across your API or 2) have the same information defined. Let us go through an example for the former case first.
+
+```yaml
+#%RAML 1.0
+title: My API
+baseUri: http://api.mydomain.com
+version: 1
+
+/users:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            schema:
+            # additional information about the response
+  post:
+    body:
+      application/json:
+        schema:
+        # additional information about the request
+  /{id}:
+    get:
+      responses:
+        200:
+          body:
+            application/json:
+              schema:
+              # additional information about the response
+```
+
+By looking closer at the example above, it turns out that the API only uses the media type `application/json` to describe all of its request or responses. To reduce the amount of redundant information and to make this specific media type default across your API, RAML provides the `mediaType` property at the root-level of your API. Using that, our modified example would look like the following:
+
+```yaml
+#%RAML 1.0
+title: My API
+baseUri: http://api.mydomain.com
+version: 1
+
+mediaType: application/json
+
+/users:
+  get:
+    responses:
+      200:
+        body:
+          schema:
+          # additional information about the response
+  post:
+    body:
+      schema:
+      # additional information about the request
+  /{id}:
+    get:
+      responses:
+        200:
+          body:
+            schema:
+            # additional information about the response
+```
+
+In some cases, of course, you want to add an additional media type or not use the default. That can be achieved by simply define the media type explicitly on the request or response; where the default media type will be overridden and in case it is still required has to be defined explicitly again.
+
+```yaml
+#%RAML 1.0
+title: My API
+baseUri: http://api.mydomain.com
+version: 1
+
+mediaType: application/json
+
+/users:
+  get:
+    responses:
+      200:
+        body:
+          application/xml: # overrides default media type
+            schema:
+            # additional information about the response
+          application/json: # needs to be mentioned explicitly again
+            schema:
+            # additional information about the response
+  post:
+    body:
+      schema:
+      # additional information about the request
+  /{id}:
+    get:
+      responses:
+        200:
+          body:
+            schema:
+            # additional information about the response
+```
+
+How simple and handy is that, right? You do not need to specify the media type within every body definition of a request or response. That greatly reduce the redundant information in your API definition and makes it very easy to change from one standard media type to another.
+
+### Adding in Available Protocols
 	Stuff goes here
 
-####Adding in Available Protocols
-	Stuff goes here
-	
 ###Creating Resources
 Creating resources in RAML is as easy as writing down it's path.  For example, if we wanted to create an API with a `/users` resource, all we would need to type is `/users:` like so:
 
@@ -155,32 +323,32 @@ Creating resources in RAML is as easy as writing down it's path.  For example, i
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
-	
+
 Just like that we now have a `/users` resource:
 
 ![](pngs/raml_001.png)
-	
+
 To add a description to our `/users` resource, we simply follow YAML conventions and add the `description` property:
 
 	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		description: this is my users resource!  isn't this easy?!
 
 And once again, just like that, the description is added to our resource:
 
 ![](pngs/raml_002.png)
-	
+
 ####URI Properties
 To create more complex resources, or resources that utilize names or IDs, you can take advantage of URI properties, or placeholders within the resource.  To do this, simply tell the spec that your ID is a URI Property by placing curly brackets around it, like so:
 
 	/users/{id}:
-	
+
 Just like that you can setup IDs or dynamic resource paths:
 
 ![](pngs/raml_003.png)
@@ -194,13 +362,13 @@ But another great feature of RAML is something called resource nesting, or creat
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		description: this is my users resource!  isn't this easy?!
-		
+
 		/{id}:
 			description: this is a nested dynamic resource using a URI property
-			
+
 As you can see, the `/{id}` resource is now a child of the parent resource.  This lets you define your API in a way that is efficiently organized, letting you quickly find all sub-resources under their parent.
 
 However, it's important to note that the child resources inherit the parent path ONLY - and do not inherit any of parent's properties such as it's resourceType or methods, unless specifically specified in the child resource (as you did in the parent).
@@ -211,12 +379,12 @@ For example, if we look at this RAML snippet:
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		get:
-		
+
 		/{id}:
-			
+
 You'll notice that the resource `/users` has a `GET` method, however the child resource `/{id}` does not.  
 
 ![](pngs/raml_004.png)
@@ -230,15 +398,15 @@ Just as creating resources was as simple as declaring the path, adding methods i
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		get:
-		
+
 Which in turn creates:
 
 ![](pngs/raml_005.png)
 
-RAML supports `GET`, `PUT`, `PATCH`, `POST`, `DELETE`, `TRACE`, `HEAD`, and `OPTIONS` although you'll want to be careful which ones you use as not all are official methods, and not all are supported by all servers.
+RAML supports `GET`, `PUT`, `PATCH`, `POST`, `DELETE`, `HEAD`, and `OPTIONS` although you'll want to be careful which ones you use as not all are official methods, and not all are supported by all servers.
 
 It's also important to understand the difference between each of these methods as they all have VERY specific purposes with careful and well established standards surrounding them.  Refer to my other book, *[Undisturbed REST: a Guide to Designing the Perfect API](http://www.mikestowe.com/books)* if you're not sure how to properly use them.
 
@@ -250,11 +418,11 @@ To add a description, simply use the `description` property:
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		get:
 			description: this is my get method
- 
+
 
 ####Querystring Parameters
 Another common functionality with APIs is Querystring Parameters, or manipulating the response using the URI querystring.
@@ -265,36 +433,36 @@ RAML lets you document the different querystrings under the method they are bein
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		get:
 			description: this is my get method
 			queryParameters:
-			
+
 For each `queryParameter` you will simply need to declare the name of the parameter, keeping it consistent with how it is used within the URL.  So if our URL was `http://api.mydomain.com/users?status=active` we would call the query parameter "status" like so:
 
 	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		get:
 			description: this is my get method
 			queryParameters:
 				status:
-				
+
 And as simple as that, we now have the `status` query parameter showing up in our API documentation:
 
 ![](pngs/raml_006.png)
-	
+
 Of course, there is much more you can do with the query parameter, such as providing it's display name, a description, an example, the default value, whether or not it is required, and even it's type:
 
 	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		get:
 			description: this is my get method
@@ -310,12 +478,12 @@ Of course, there is much more you can do with the query parameter, such as provi
 Need to add:
 
 	validWhen/ requiredWhen
-	
+
 By providing this additional information, you are empowering your users as this information can be passed through to them in your documentation, as well as taken advantage of by other tools that parse your API's RAML spec.
 
 ####Form Data
 	This needs to be filled out!
-	
+
 ####Body Data
 More common than using form data for `PUT`, `PATCH`, and `POST` calls, however, is the use of a format like JSON or XML within the body.
 
@@ -325,12 +493,12 @@ RAML also lets you share examples of what the user should be sending when making
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		post:
 			body:
 				application/json:
-				
+
 Unfortunately, this really doesn't change the way our documentation works as we still have not provided WHAT the body should look like.
 
 To do this we have two options, we can share a schema (more often used with XML) or provide an example of the data being shared.
@@ -341,7 +509,7 @@ Of course, if we'd like we can share both by using the corresponding properties:
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		post:
 			body:
@@ -377,18 +545,18 @@ Of course, if we'd like we can share both by using the corresponding properties:
 					  "city": "San Francisco",
 					  "state": "CA"
 					}
-	
+
 By providing both this lets us share with our users what the request should look like, as well as the specific information about what the request needs to include and how it should be formatted, something that again can be provided to them via your documentation and also used to generate auto-validating SDKs:
 
 ![](pngs/raml_007.png)
-	
+
 Of course, your API may support numerous content-types, which works fairly well with RAML, as all you have to do to add an additional content type is, well, add it (I'm removing schemas in this case to keep it short, but of course RAML supports multiple content-types having schemas):
 
 	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		post:
 			body:
@@ -406,13 +574,13 @@ Of course, your API may support numerous content-types, which works fairly well 
 							<city>San Francisco</city>
 							<state>CA</state>
 						</user>
-						
+
 As you can see, we now have multiple content types to choose from shown in our documentation:
 
 ![](pngs/raml_008.png)
-	
+
 What's important to remember is that schemas describe the request content, where-as examples are "real-life demos" of what that formatted content would look like when being sent to your server via the content-type body.
-					
+
 
 ###Handling Responses
 RAML lets you easily describe all aspects of your API resource method's responses for multiple status codes including defining headers, content-types, schemas, and example responses.
@@ -423,7 +591,7 @@ To declare responses in RAML, simply use the `responses` property:
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		post:
 			responses:
@@ -439,16 +607,16 @@ Status Code | Description | Generally Returned For
 200 | The request was handled successfully | GET, PUT, PATCH
 201 | A new object has been created | POST
 204 | The request was successful, but there's no content to return | DELETE
-**3xx** | **Redirection** | 
+**3xx** | **Redirection** |
 301 | Resource or item moved permanently | ALL
 304 | Nothing was modified by the request | PUT, PATCH
-**4xx** | **Client Error** | 
+**4xx** | **Client Error** |
 400 | The request could not be understood by the server | ALL
 401 | Not authorized to access or perform action | ALL
 404 | The resource or item could not be found | GET
 405 | The method attempted (GET, PUT, POST, etc) is not allowed | ALL
 415 | The media type request (JSON, XML, etc) is not supported | ALL
-**5xx** | **Server Error** | 
+**5xx** | **Server Error** |
 500 | The server experienced an unexpected error and could not complete the request | ALL
 
 However, you can find a more detailed list in chapter 9 my book, "Undisturbed REST."
@@ -459,19 +627,19 @@ To setup responses for each status, use the status code as the key for the respo
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		post:
 			responses:
 				201:
 					# 200 - Object Created
-					
+
 				400:
 					# 400 - Bad Request
-				
+
 				500:
 					# 500 - Server Error
-					
+
 Which as you can see adds them to our API documentation for that method:
 
 ![](pngs/raml_009.png)
@@ -485,7 +653,7 @@ Adding headers is as simple as using the `headers` property within the status co
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		post:
 			responses:
@@ -495,7 +663,7 @@ Adding headers is as simple as using the `headers` property within the status co
 							#location data will go here
 				401:
 					# Not Authorized
-							
+
 Once you have defined the header by the property name you can add the following properties to each header property as necessary:
 
 Property | Description
@@ -510,7 +678,7 @@ For example:
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		post:
 			responses:
@@ -538,17 +706,17 @@ To define a content type, first state that you are returning back body data by u
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		post:
 			responses:
 				201:
 					headers:
 						# header information
-					
+
 					body:
 						application/json:
-						
+
 
 To list multiple content types, you can simply add additional content types within the `body` section of the status code response data, like so:
 
@@ -556,19 +724,19 @@ To list multiple content types, you can simply add additional content types with
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		post:
 			responses:
 				201:
 					headers:
 						# header information
-					
+
 					body:
 						application/json:
-						
+
 						text/xml:
-						
+
 The next step to showing off these content types is adding in example response data so that we can see what they look like.
 
 ####Examples
@@ -582,21 +750,21 @@ Another option, of course, is to include your example using `!include` which we 
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		post:
 			responses:
 				201:
 					headers:
 						# header information
-					
+
 					body:
 						application/json:
 							example: |
 								{
 									"response" : "data"
 								}
-						
+
 						text/xml:
 							example: |
 								<response>
@@ -614,21 +782,21 @@ Schemas work very similarly to examples, except you need to use the `schema` pro
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/users:
 		post:
 			responses:
 				201:
 					headers:
 						# header information
-					
+
 					body:
 						application/json:
 							example: |
 								{
 									"response" : "data"
 								}
-							
+
 							schema: |
 								{
 								  "$schema": "http://json-schema.org/draft-04/schema#",
@@ -643,8 +811,8 @@ Schemas work very similarly to examples, except you need to use the `schema` pro
 								    "response"
 								  ]
 								}
-								
-	
+
+
 As you can see in the above example, RAML lets you explain your content types with examples, schemas, or both.
 
 Now if we look in the API Console, while we still have the example, we can now see the schema for the application/json response body:
@@ -668,7 +836,7 @@ For example, if we are using HAL (content type: application/hal+json) we can rep
 				201:
 					headers:
 						# header information
-					
+
 					body:
 						application/json+hal:
 							example: |
@@ -681,7 +849,7 @@ For example, if we are using HAL (content type: application/hal+json) we can rep
 										"messages": { "href": "/users/1/messages" },
 									}
 								}
-								
+
 
 ####Error Handling
 
@@ -698,7 +866,7 @@ Using the !include file is as simple as:
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	/resource:
 		get:
 			responses:
@@ -707,7 +875,7 @@ Using the !include file is as simple as:
 						application/json:
 							example: !include examples/resource_get.json
 							schema: !include schemas/resource_get.json
-				
+
 ###Base
 	I wish I was an oscar meyer weiner...
 
@@ -724,15 +892,15 @@ Another huge advantage of resourceTypes is that it lets you define all your poss
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	resourceTypes:
 	 - collection:
 	 	get:
 	 		description: this is a get method
-	 		
+
 	 	post:
 	 		description: this is a post method
-	 		
+
 	 	delete:
 	 		description: this is a delete method
 	 		responses:	 		
@@ -763,10 +931,10 @@ Another huge advantage of resourceTypes is that it lets you define all your poss
 	 					application/json:
 	 						example: |
 	 							{"Response" : "Internal Server Error"}
-	
+
 	/users:
 		type: collection
-		
+
 You'll noticed that the `/users` doesn't actually have any properties assigned to it other than `type: item`, but because it is of a known resourceType, all of the information will be automatically pulled into it for us:
 
 ![](pngs/raml_013.png)
@@ -775,37 +943,37 @@ Including method properties:
 
 ![](pngs/raml_014.png)
 
-####Declaring Optional Methods	
+####Declaring Optional Methods
 Of course, chances are you do not want ALL the information to be pulled in all of the time, in which case you can make methods OPTIONAL by adding a `?` to the end of the method name, like so:
 
 	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	resourceTypes:
 	 - collection:
 	 	get?:
 	 		description: this is a get method
-	 		
+
 	 	put?:
 	 		description: this is a put method
-	 		
+
 	 	post?:
 	 		description: this is a post method
-	 		
+
 	 	delete?:
 	 		description: this is a delete method
-	
+
 	/users:
 		type: collection
 
 Now the `/resource` does not have ANY properties being pulled in because we have declared all the methods to be optional, and to only be pulled in if explicitly called by the resource.
 
 ![](pngs/raml_015.png)
-	
+
 But the second we call in one of the properties, we now have it's description and any underlying properties that we would delcared:
-	
+
 	/users:
 		type: collection
 		get:
@@ -813,7 +981,7 @@ But the second we call in one of the properties, we now have it's description an
 As you can see here:
 
 ![](pngs/raml_016.png)
-	
+
 ####Placeholders within ResourceTypes
 Just as you probably do not want all methods in every resource, chances are you probably want different descriptions, examples, properties, and other data within your resources.
 
@@ -838,11 +1006,11 @@ Placeholders within RAML are denoted by double less than and greater than signs,
 	            application/json:
 	              example: |
 	                <<exampleItem>>
-	
+
 As you can see from the code above, first we declare our placeholders in the resourceType itself, and then we specify the values in the calling resource, under that specific type:
 
 	/users:
-    	type: 
+    	type:
       		collection:
         		exampleItem: |
 		          {
@@ -852,9 +1020,9 @@ As you can see from the code above, first we declare our placeholders in the res
 		          }
 
 These placeholders are automatically replaced with the correct data in our documentation:
-	
+
 ![](pngs/raml_017.png)
-	
+
 This allows us to ensure consistency not only in how our resources operate, but also in our documentation.  Making it easy for our developers to go from resource to resource, knowing that the code and the documentation will be consistent.
 
 ###Traits
@@ -862,14 +1030,14 @@ Traits operate in a fairly similar fashion to resourceTypes except that they ope
 
 Traits are typically used for operations such as pagination, searching, or filtering the method data.
 
-To delcare a trait, first we need to declare it at the top of our spec under the `traits` property: 
+To delcare a trait, first we need to declare it at the top of our spec under the `traits` property:
 
 	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
 
-	traits: 
+	traits:
 	  - pageable:
 	      queryParameters:
 	        offset:
@@ -890,7 +1058,7 @@ And then we will pull it into our method using the `is` property:
 	/users:
     	get:
       		is: [pageable]
-	
+
 Once the trait is successfully pulled in, we can see it within the API designer or in our documentation:
 
 ![](pngs/raml_018.png)
@@ -902,7 +1070,7 @@ As mentioned, you can also take advantage of placeholders with traits by sending
 	baseUri: http://api.mydomain.com
 	version: 1
 
-	traits: 
+	traits:
 	  - filterable:
 	  - pageable:
 	      queryParameters:
@@ -918,14 +1086,14 @@ As mentioned, you can also take advantage of placeholders with traits by sending
 	          required: false
 	          example: 80
 	          default: <<limitDefault>>
-	          
+
 	/users:
     	get:
       		is: [
       				filterable,
       				pageable: {offsetDefault: 0, limitDefault: 20}
       			]
-	
+
 The biggest advantage of traits is that they ensure consistency in the way your methods are acted upon.  Remember in Chapter 1 where we talked about how easy it is for these inconsitencies to crop up, making APIs difficult to use (as you have to search one resource one way, but another a completely different way - or worse, the same resource different ways) - by using traits you are creating a sure way NOT to run into this issue and have such inconsistences across your API.
 
 The other nice thing about traits is that you can apply mulitple traits to your methods, letting you pull in and utilize multiple types of functions as much or as little as needed.
@@ -940,7 +1108,7 @@ This is particularly helpful if you have multiple APIs that share common themes 
 To pull in a namespaced library, you'll first want to create a library file.  We declare that a RAML specification is only to be used as a library by adding "Library" to the top of the file, like so:
 
 	#%RAML 1.0 Library
-	
+
 By adding this line, we are telling the RAML spec to treat this file as a class, and not as an independent RAML specification.
 
 Let's move our resourceTypes and Traits into this file:
@@ -960,7 +1128,7 @@ Let's move our resourceTypes and Traits into this file:
 	      #Filterable trait goes here
 	  - pageable:
 	      #Pageable trait goes here
-	      
+
 Now to call in this library, we will again pull it in using the `uses` property and the `!include` command:
 
 	#%RAML 1.0
@@ -973,7 +1141,7 @@ Now to call in this library, we will again pull it in using the `uses` property 
 
 	/users:
 	    get:
-	    
+
 However, at this point nothing is being applied to the resource or the method.  If we try to apply the "collection" resourceType as we did before, the result will be an error:
 
 ![](pngs/raml_019.png)
@@ -991,7 +1159,7 @@ The reason for this is that the resourceType "collection" doesn't exist!  Instea
 	/users:
 		type: users.collection
 		get:
-		
+
 As you can see, now the resourceType users.collection has been applied to our resource:
 
 ![](pngs/raml_020.png)
@@ -1235,8 +1403,3 @@ Of course, there are many great books on API design, and of the many out there I
 - **A Practical Approach to API Design**, *D. Keith Casey Jr & James Higginbotham*, 2015, LeanPub
 
 - **RESTful Web APIs**, *Leonard Richardson, Mike Amundsen, & Sam Ruby*, 2013, O'REILLY
-
-
-
-
-
