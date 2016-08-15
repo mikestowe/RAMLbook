@@ -345,7 +345,7 @@ To add a description to our `/users` resource, we simply follow YAML conventions
 	version: 1
 
 	/users:
-		description: this is my users resource!  isn't this easy?!
+	  description: this is my users resource!  isn't this easy?!
 
 And once again, just like that, the description is added to our resource:
 
@@ -371,10 +371,10 @@ But another great feature of RAML is something called resource nesting, or creat
 	version: 1
 
 	/users:
-		description: this is my users resource!  isn't this easy?!
+	  description: this is my users resource!  isn't this easy?!
 
-		/{id}:
-			description: this is a nested dynamic resource using a URI property
+	  /{id}:
+	    description: this is a nested dynamic resource using a URI property
 
 As you can see, the `/{id}` resource is now a child of the parent resource.  This lets you define your API in a way that is efficiently organized, letting you quickly find all sub-resources under their parent.
 
@@ -388,9 +388,9 @@ For example, if we look at this RAML snippet:
 	version: 1
 
 	/users:
-		get:
+	  get:
 
-		/{id}:
+	  /{id}:
 
 You'll notice that the resource `/users` has a `GET` method, however the child resource `/{id}` does not.  
 
@@ -407,7 +407,7 @@ Just as creating resources was as simple as declaring the path, adding methods i
 	version: 1
 
 	/users:
-		get:
+	  get:
 
 Which in turn creates:
 
@@ -427,8 +427,8 @@ To add a description, simply use the `description` property:
 	version: 1
 
 	/users:
-		get:
-			description: this is my get method
+	  get:
+	    description: this is my get method
 
 
 ####Querystring Parameters
@@ -442,9 +442,9 @@ RAML lets you document the different querystrings under the method they are bein
 	version: 1
 
 	/users:
-		get:
-			description: this is my get method
-			queryParameters:
+	  get:
+	    description: this is my get method
+    	queryParameters:
 
 For each `queryParameter` you will simply need to declare the name of the parameter, keeping it consistent with how it is used within the URL.  So if our URL was `http://api.mydomain.com/users?status=active` we would call the query parameter "status" like so:
 
@@ -454,10 +454,10 @@ For each `queryParameter` you will simply need to declare the name of the parame
 	version: 1
 
 	/users:
-		get:
-			description: this is my get method
-			queryParameters:
-				status:
+	  get:
+	    description: this is my get method
+	    queryParameters:
+	      status:
 
 And as simple as that, we now have the `status` query parameter showing up in our API documentation:
 
@@ -471,15 +471,15 @@ Of course, there is much more you can do with the query parameter, such as provi
 	version: 1
 
 	/users:
-		get:
-			description: this is my get method
-			queryParameters:
-				status:
-					displayName: Status
-					description: Status of the users to retrive (active, inactive, all)
-					default: all
-					required: false
-					type: string
+	  get:
+	    description: this is my get method
+	    queryParameters:
+	      status:
+		    displayName: Status
+			description: Status of the users to retrive (active, inactive, all)
+			default: all
+			required: false
+			type: string
 
 
 Need to add:
@@ -502,9 +502,9 @@ RAML also lets you share examples of what the user should be sending when making
 	version: 1
 
 	/users:
-		post:
-			body:
-				application/json:
+	  post:
+	    body:
+		  application/json:
 
 Unfortunately, this really doesn't change the way our documentation works as we still have not provided WHAT the body should look like.
 
@@ -518,40 +518,40 @@ Of course, if we'd like we can share both by using the corresponding properties:
 	version: 1
 
 	/users:
-		post:
-			body:
-				application/json:
-					schema: |
-						{
-						  "$schema": "http://json-schema.org/draft-04/schema#",
-						  "id": "http://jsonschema.net",
-						  "type": "object",
-						  "properties": {
-						    "name": {
-						      "id": "http://jsonschema.net/name",
-						      "type": "string"
-						    },
-						    "city": {
-						      "id": "http://jsonschema.net/city",
-						      "type": "string"
-						    },
-						    "state": {
-						      "id": "http://jsonschema.net/state",
-						      "type": "string"
-						    }
-						  },
-						  "required": [
- 						   "name",
- 						   "city",
- 						   "state"
-						  ]
-						}
-				example: |
-					{
-					  "name": "Mike Stowe",
-					  "city": "San Francisco",
-					  "state": "CA"
-					}
+	  post:
+        body:
+		  application/json:
+		    schema: |
+			  {
+			    "$schema": "http://json-schema.org/draft-04/schema#",
+			    "id": "http://jsonschema.net",
+			    "type": "object",
+			    "properties": {
+			       "name": {
+			          "id": "http://jsonschema.net/name",
+			          "type": "string"
+			        },
+			      "city": {
+	 	            "id": "http://jsonschema.net/city",
+				    "type": "string"
+			      },
+			      "state": {
+			        "id": "http://jsonschema.net/state",
+		            "type": "string"
+		          }
+				},
+		   	    "required": [
+			  	  "name",
+			      "city", 				  	   
+				  "state"
+				]
+			  }
+		  	example: |
+		  	  {
+	  		    "name": "Mike Stowe",
+		  	    "city": "San Francisco",
+			    "state": "CA"
+			  }
 
 By providing both this lets us share with our users what the request should look like, as well as the specific information about what the request needs to include and how it should be formatted, something that again can be provided to them via your documentation and also used to generate auto-validating SDKs:
 
@@ -1275,18 +1275,32 @@ Also new in RAML 1.0, annotations are designed to allow for vendor specific prop
 
 This means that your RAML specification can be expanded upon to provide any unique information vendors or third service solutions might require, but in a way that doesn't impact the rest of your specification - and can even be separated from your primary RAML specification.
 
-To use annotations, we need to first declare the annotations within our spec:
+To use annotations, we need to first declare the annotations within our spec, or in this case, within an overlay:
 
-	CODE
+	#%RAML 1.0 Overlay
+	usage: Developer Environment
+	extends: api.raml
+	
+	annotationTypes:
+      partnerClearanceLevel: enum[low, med, high]
+        
 	
 Once they have been declared, we can now place them in our resources and methods like any other property, denoting they are an annotation by surrounding the key in parenthesis, like so:
 
-	CODE
+	#%RAML 1.0 Overlay
+	usage: Developer Environment
+	extends: api.raml
+	
+	annotationTypes:
+      partnerClearanceLevel: enum[low, med, high]
+      
+    /users:
+      get:
+        (partnerClearanceLevel): low
 
 Because annotations are vendor specific, you will won't see any changes in the API Console, but they are now avaialble for the solutions you provide them to (again preferably in an overlay).
 
-	IS THIS TRUE??? VERIFY.
-	![Picture Needed](image_needed.png)
+![Picture Needed](image_needed.png)
 
 
 ##4. Advanced Features
@@ -1341,6 +1355,9 @@ RAML-python uses NodeJS to generate a framework for your API in Python.
 
 ####Ruby
 	NEEDS TO BE FILLED OUT
+	
+####Integration Frameworks
+#####MuleSoft
 
 ###Test
 ####Community Projects
@@ -1357,8 +1374,14 @@ Postman is one of the most popular API calling and testing tools used by develop
 #####API Fortress
 API Fortress provides testing by checking latency and response speeds within your API.  With API Fortress you can also validate responses and payloads to ensure that whether in dev or production your API is functioning correctly.  On top their services, API Fortress offers their own API - letting you test your API on demand.  Learn more about API Fortress athttp://apifortress.com/
 
+#####API Metrics
+TBA
+
 #####API Science
 API Science offers worldwide monitoring and testing of your API to identify performance issues, outages, errors.  With API Science you’re able to test multiple aspects of your HTTP based REST API including JSON, OAuth, and XML.  You can even test real, advanced CRUD sequences in production and receive alerts via Slack, PagerDuty, or via webhooks.  Learn more about API Science at https://www.apiscience.com/
+
+#####Parasoft
+TBA
 
 #####SmartBear
 SmartBear offers a large suite of testing tools for your API, letting you pull in your RAML spec to identify latency/ speed issues, errors, and verify response data.  Along with API Readiness tools, they also offer API Virtualization, Continuous Integration tooling, and Performance testing.  Learn more about SmartBear at http://smartbear.com/
