@@ -1303,20 +1303,24 @@ Because annotations are vendor specific, you will won't see any changes in the A
 ![Picture Needed](image_needed.png)
 
 
-##4. Advanced Features
-###Data Types
-	Can be used in place of schemas
-###Dynamic Properties
-	first match
-###Security
-####Basic Auth
-####Digest Auth
-####OAuth 1
-####OAuth 2
-####Custom Auth
-###Strict Typing
+##4. Using Data Types
+	
+###Defining Types
+	
+###Built in Types
 
-##5. Community Tooling
+###Using Existing Schemas
+
+
+
+##5. Security
+###Basic Auth
+###Digest Auth
+###OAuth 1
+###OAuth 2
+###Custom Auth
+
+##6. Community Tooling
 One of the strengths of RAML is the fact that the spec is surrounded by a very active open source community, while also being supported by some of the leading enterprises - ensuring a large selection of tooling to help you in all aspects of the API lifecycle.
 
 Along with the release of RAML 1.0, however, MuleSoft also contributed a new tool - the API WorkBench which encompasses nearly every aspect of the API lifecycle, letting you not only design your API, but test and generate SDKs and tooling all from a single source.
@@ -1398,7 +1402,7 @@ SmartBear offers a large suite of testing tools for your API, letting you pull i
 	Talk about Parsers and contributing :)
 
 
-##6. Spec Driven Development
+##7. Spec Driven Development
 Spec Driven Development isn't part of RAML itself, but is a methodology that lets you incorporate design and development best practices, while ensuring you get the most out of your RAML spec.
 
 Sometimes companies and project managers are adverse to the idea of contract driven design as they instantly jump back to their struggles in meeting deadlines and producing a viable product with the infamous Waterfall Methodology.
@@ -1490,7 +1494,7 @@ Here are just some of the benefits that implementing Spec Driven Development pro
 - Enables the use of open source communities and tools surrounding the spec, providing you with a strong community to learn from and freely available tooling that can save you thousands
 
 
-##7. Putting it all Together
+##8. Putting it all Together
 Now that we have a strong understanding of how RAML works, we can create a fairly large and complex API in very little time, and keep it not only organized, but easy to read and edit for our technical writers!
 
 Then once the API is done, we can create a myriad of tools around it for our community to take advantage of - from API Notebooks, to documentation, to SDKs, to status notifiers, to so much more!!!
