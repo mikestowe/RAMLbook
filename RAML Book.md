@@ -1573,7 +1573,37 @@ Then once the API is done, we can create a myriad of tools around it for our com
 Let's get started by taking a real world API and showing how simple it is to keep it organized and readable.
 
 ###Our Structure
+We'll start off by creating a file structure designed to keep our RAML specification easy to read, and easy to edit.  Since we will be taking advantage of data types, libraries, overlays, and more - we'll split it into the following folder structure:
 
+	- root
+		- source
+		- libraries
+			- global
+			
+Inside of our libraries directory we can also create a Git-based global directory to automatically pull in libraries shared across multiple APIs.
+
+	- root
+		- libraries
+			- global
+
+If you will be pulling in older schemas or examples from a RAML 0.8 API (or others you've defined) you will also want to create folders for your schemas and/or examples, as well as sub-folders for each content-type:
+
+	- root
+		- schemas
+			- json
+			- xml
+		- examples
+			- json
+			-xml
+			
+The key to the structure is ensuring that every aspect of your API has a place, and that you avoid clutter/ combinging too many things in the same place.  While this takes a little bit more work to setup, it will ensure your API will remain readable, and easy to modify as new developers join your team.
+
+Note - if you have a separate documentation/ technical writing team, you can also add in one more directory for docs - or the directory that will contain an overlay just for your technical writers to ensure that there are no accidental changes to your master or source specification.
+
+	- root
+		- docs
+
+			
 ###Creating our Libraries
 
 ###Creating our Master Specification
