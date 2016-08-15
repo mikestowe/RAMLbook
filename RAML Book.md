@@ -1,5 +1,5 @@
-#Let's Get Ready to RAML
-#### Using RAML 1.0 to Design,Build, Test, Document, and Share Your API
+#Let's Get Ready to RAML (working title)
+#### Using RAML 1.0 to Design, Build, Test, Document, and Share Your API
 
 ------
 
@@ -1086,20 +1086,20 @@ To delcare a trait, first we need to declare it at the top of our spec under the
 	version: 1
 
 	traits:
-	  - pageable:
-	      queryParameters:
-	        offset:
-	          description: Skip over a number of elements by specifying an offset value for the query
-	          type: integer
-	          required: false
-	          example: 20
-	          default: 0
-	        limit:
-	          description: Limit the number of elements on the response
-	          type: integer
-	          required: false
-	          example: 80
-	          default: 10
+	  pageable:
+	    queryParameters:
+	      offset:
+	        description: Skip over a number of elements by specifying an offset value for the query
+	        type: integer
+	        required: false
+	        example: 20
+	        default: 0
+	      limit:
+	        description: Limit the number of elements on the response
+	        type: integer
+	        required: false
+	        example: 80
+	        default: 10
 
 And then we will pull it into our method using the `is` property:
 
