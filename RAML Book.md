@@ -610,20 +610,20 @@ The most popular status codes are:
 
 Status Code | Description | Generally Returned For
 ----------- | ----------- | ------------
-**2xx** | **Successful** |
+**2xx** | **Successful** | Success
 200 | The request was handled successfully | GET, PUT, PATCH
 201 | A new object has been created | POST
 204 | The request was successful, but there's no content to return | DELETE
-**3xx** | **Redirection** |
+**3xx** | **Redirection** | Redirects
 301 | Resource or item moved permanently | ALL
 304 | Nothing was modified by the request | PUT, PATCH
-**4xx** | **Client Error** |
+**4xx** | **Client Error** | Errors
 400 | The request could not be understood by the server | ALL
 401 | Not authorized to access or perform action | ALL
 404 | The resource or item could not be found | GET
 405 | The method attempted (GET, PUT, POST, etc) is not allowed | ALL
 415 | The media type request (JSON, XML, etc) is not supported | ALL
-**5xx** | **Server Error** |
+**5xx** | **Server Error** | Errors
 500 | The server experienced an unexpected error and could not complete the request | ALL
 
 However, you can find a more detailed list in chapter 9 my book, "Undisturbed REST."
@@ -859,6 +859,47 @@ For example, if we are using HAL (content type: application/hal+json) we can rep
 
 
 ####Error Handling
+In order to assist developers in integrating and debugging your API, it's highly recommended to use a descriptive error format such as JSON API's error method, vnd.error, or Google Errors.
+
+Because your error response should be specific to the call made by the user, it's not possible to describe all error possibilities inside of your RAML specification.  Instead, like with hypermedia, you can specifiy the response code and then provide an example of the error they might receive to help them better understand the model or response they might receive when something does go wrong.
+
+Just like hypermedia, the sample error becomes part of our example response:
+
+	/users:
+		post:
+			responses:
+				400:
+					headers:
+						# header information
+
+					body:
+						application/json:
+							example: |
+								{
+								  "error": { 
+								    "code": 400, 
+								    "message": "The user was missing required fields", 
+								    "errors": [
+								      {
+								        "domain": "global", 
+								        "reason": "MissingParameter", 
+								        "message": "User first name cannot be empty", 
+								        "locationType": "parameter", 
+								        "location": "firstName", 
+								        "extendedHelp": "http://docs.domain.ext/users/post" }, 
+								      { 
+								        "domain": "global", 
+								        "reason": "MissingParameter", 
+								        "message": "User last name cannot be empty", 
+								        "locationType": "parameter",
+								        "location": "lastName", 
+								        "extendedHelp": "http://docs.domain.ext/users/post" 
+								      }
+								    ] 
+								  } 
+								}
+
+You can learn more about descriptive error formats and their usage in my other book, Undisturbed REST: a Guide to Designing the Perfect API.
 
 ##3. Setting up Templates
 Now that you have an idea of what your API resources will look like, RAML let's you setup includes and templates to allow for both code reuse and the implementation of design patterns.  This not only ensures that your API is consistent throughout, but also lets you organize your API to keep it easily readable by those working with the RAML spec.
@@ -1078,28 +1119,28 @@ As mentioned, you can also take advantage of placeholders with traits by sending
 	version: 1
 
 	traits:
-	  - filterable:
-	  - pageable:
-	      queryParameters:
-	        offset:
-	          description: Skip over a number of elements by specifying an offset value for the query
-	          type: integer
-	          required: false
-	          example: 20
-	          default: <<offsetDefault>>
-	        limit:
-	          description: Limit the number of elements on the response
-	          type: integer
-	          required: false
-	          example: 80
-	          default: <<limitDefault>>
+	  filterable:
+	  pageable:
+	    queryParameters:
+	      offset:
+	        description: Skip over a number of elements by specifying an offset value for the query
+	        type: integer
+	        required: false
+	        example: 20
+            default: <<offsetDefault>>
+          limit:
+	        description: Limit the number of elements on the response
+	        type: integer
+	        required: false
+	        example: 80
+	        default: <<limitDefault>>
 
 	/users:
-    	get:
-      		is: [
-      				filterable,
-      				pageable: {offsetDefault: 0, limitDefault: 20}
-      			]
+      get:
+        is: [
+      	  filterable,
+      	  pageable: {offsetDefault: 0, limitDefault: 20}
+      	]
 
 The biggest advantage of traits is that they ensure consistency in the way your methods are acted upon.  Remember in Chapter 1 where we talked about how easy it is for these inconsitencies to crop up, making APIs difficult to use (as you have to search one resource one way, but another a completely different way - or worse, the same resource different ways) - by using traits you are creating a sure way NOT to run into this issue and have such inconsistences across your API.
 
@@ -1122,19 +1163,19 @@ Let's move our resourceTypes and Traits into this file:
 
 	#%RAML 1.0 Library
 	resourceTypes:
-	  - collection:
-	      get:
-	        # Get method goes here
-	      post:
-	        # Post method goes here
-	      delete:
-	        # Delete method goes here
+	  collection:
+	    get:
+	      # Get method goes here
+	    post:
+	      # Post method goes here
+	    delete:
+	      # Delete method goes here
 
 	traits:
-	  - filterable:
-	      #Filterable trait goes here
-	  - pageable:
-	      #Pageable trait goes here
+	  filterable:
+	    #Filterable trait goes here
+	  pageable:
+	    #Pageable trait goes here
 
 Now to call in this library, we will again pull it in using the `uses` property and the `!include` command:
 
@@ -1146,8 +1187,8 @@ Now to call in this library, we will again pull it in using the `uses` property 
 	uses:
 	  users: !include libraries/users.raml
 
-	/users:
-	    get:
+	/users:		  
+	  get:
 
 However, at this point nothing is being applied to the resource or the method.  If we try to apply the "collection" resourceType as we did before, the result will be an error:
 
@@ -1161,11 +1202,12 @@ The reason for this is that the resourceType "collection" doesn't exist!  Instea
 	version: 1
 
 	uses:
-		users: !include libraries/users.raml
+	  users: !include libraries/users.raml
 
 	/users:
-		type: users.collection
-		get:
+	  type: 
+	    users.collection
+	  get:
 
 As you can see, now the resourceType users.collection has been applied to our resource:
 
@@ -1174,16 +1216,59 @@ As you can see, now the resourceType users.collection has been applied to our re
 By having your resourceTypes, traits, schemas, and examples namespaced, you are able to prevent collisions and only use the components of a library that you choose - keeping your specification clean, and your code reusable.
 
 ###Overlays
+
 Overlays allow another type of code reuse, by letting you create one specification and then "overlay" it with another to meet specific conditions or requirements without having to duplicate or modify your original spec.
 
 For example, if your company has development, QA, and production environments - the configurations for each environment (such as the BaseUri) might be different.  Before, in RAML 0.8, to accomplish this you would need to duplicate your specification for each environment - increasing the odds of bugs or differences between the different "environment specific" specifications.  But with RAML 1.0, you only need to create a small snippet of RAML that you can then use to "overlay" the single specification the three environments will share - helping ensure the overall specification is the same in all environments.
 
-	CODE
+#### Modifying Titles, Descriptions, Etc.
 
-As you can see, in this case we are only providing the information needed to "overlay" or expand upon the existing specification:
+Within overlays, there are two types: overlays and extensions.  Overlays are used to provide additional information such as descriptions or annotations without changing functionality.  To create an overlay, we simply append `#%RAML 1.0` with the keyword `Overlay` and then reference the RAML specification it extends like so:
+
+	#%RAML 1.0 Overlay
+	usage: Technical Documentation
+	extends: api.raml
+	
+	/users:
+	  displayName: Users
+	  description: Adding in technical documentation for the /users resource
+	  
+	  get:
+	  	displayName: Get Users
+	    description: Adding in technical documentation for the get method
+	
+	
+As you can see, by using an overlay we are easily able to update or provide documentation for specific environments (such as adding in private or partner resources not available to the general public).
 
 ![Picture Needed](image_needed.png)
 
+But again, when using the `Overlay` keyword we're not able to change any functionality, such as overwriting resouces, methods, or the baseUri.
+
+	#%RAML 1.0 Overlay
+	usage: Developer Environment
+	extends: api.raml
+	
+	baseUri: http://dev.api.mydomain.com
+		
+Trying to do so instead returns back an error:
+
+![Picture Needed](image_needed.png)
+
+#### Extending and Overwriting Functionality 
+
+Instead, to change functionality we will want to use the `Extension` keyword, explicitly telling the RAML parser that we want to overwrite functionality as well.   This will let us override resources, methods, and even the baseUri - letting us cater to the requirements of each of our different environments such as dev, QA, and production - as well as different aspects of functionality our API may make available for partners or internal developers.
+
+	#%RAML 1.0 Extension
+	usage: Developer Environment
+	extends: api.raml
+	
+	baseUri: http://dev.api.mydomain.com
+
+As when using the `Overlay` declaration the original RAML spec is merged in, being overwritten by any updates we place in our overlay:
+
+![Picture Needed](image_needed.png)
+
+Overlays are also a great way to keep vendor specific declarations, or annotations, separate from your master RAML specification - letting you meet your vendors needs or provide additional information without cluttering up your specification.
 
 ###Annotations
 Also new in RAML 1.0, annotations are designed to allow for vendor specific properties to be placed within your RAML specification, or preferably within an overlay that pulls in your standardized specification.
