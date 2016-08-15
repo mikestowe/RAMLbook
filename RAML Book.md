@@ -1451,11 +1451,24 @@ TBA
 
 ###Document
 ####API Console
+TBA
+
 ####API Notebook
+TBA
+
 ####RAML to HTML
+TBA
+
 ####RAML to HTML for PHP
+TBA
+
 ###Share
 ####APIMatic.io
+TBA
+
+####REST United
+TBA
+
 ###Build Your Own
 	Talk about Parsers and contributing :)
 
@@ -1557,10 +1570,31 @@ Now that we have a strong understanding of how RAML works, we can create a fairl
 
 Then once the API is done, we can create a myriad of tools around it for our community to take advantage of - from API Notebooks, to documentation, to SDKs, to status notifiers, to so much more!!!
 
-Let's get started by taking a real world API and showing how simple it is to keep it organized and readable:
+Let's get started by taking a real world API and showing how simple it is to keep it organized and readable.
 
+###Our Structure
 
-###More Resources
+###Creating our Libraries
+
+###Creating our Master Specification
+
+###Adding in Overlays
+
+###Adding in Annotations
+
+###Beyond the Specification
+
+####Generate our Unit Tests
+
+####Build the API
+
+####Generate the Documentation
+
+####Generate SDKs
+
+###The Finished Product
+
+##More Resources
 Hopefully after reading this book you have a solid foundation of what RAML is, and how to take advantage of it.  But RAML is only one small piece of the puzzle, and there is so much more to learn.
 
 I would encourage you to continue learning about how RAML can benefit you, as well as read up on API Best practices to ensure that your API provides the best experience to your users as possible, while also staying flexible enough to meet the demands of your business and platform for the next several years.
