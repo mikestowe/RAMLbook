@@ -117,7 +117,7 @@ As mentioned previously, you do not have to install and host your own instance o
 
 To sign up for an account, please go to https://anypoint.mulesoft.com/, press on the `Sign up` button and fill in your information into the form.
 
-[ad-signup image]
+![](pngs/raml_021.png)
 
 After you signed up, you are able to sign in and start to play around. The Anypoint Platform does not only provide an environment to design APIs, but also to manage and run them. Although, in this section we only concentrate on the design part.
 
@@ -131,7 +131,7 @@ After you logged into your account, to create your first API you only have to fo
 
 Following these three simple steps you should end up in your API Portal (see image below).
 
-[ad-apiportal image]
+![](pngs/raml_022.png)
 
 Use the first box and click on `Define API in API designer` to start designing your API in RAML.
 
@@ -139,7 +139,7 @@ Use the first box and click on `Define API in API designer` to start designing y
 
 The API Designer is divided into four different parts (see image below): a file explorer to navigate or organize multiple files associated to your API, the editor to design your API in RAML, a shelf that gives additional support to design your API, and the API Console to visualize the content of your API.
 
-[ad-apidesigner-overview image]
+![](pngs/raml_023.png)
 
 ### API Workbench
 
@@ -149,16 +149,16 @@ In November 2015, MuleSoft released the API Workbench as an opensource tooling t
 
 To get started with the API Workbench, you'll need to get [Github’s Atom](https://atom.io/docs/v0.194.0/getting-started-installing-atom) on your system first. After you've done the installation, installing the API Workbench should be fairly simple. The easiest way is to use Atom's package manager that is installed by default. Go to `Preferences` in Atom's main menu (on Mac that is called Atom).
 
-[aw-preferences image]
+![](pngs/raml_024.png)
 
 
 That opens an additional `Settings` tab with an option to `Install` new plugins. Choose that option and simple type in `api-workbench` to search for the plugin.
 
-[aw-install image]
+![](pngs/raml_025.png)
 
 Now click on the `Install` button in your search result and wait until the installation process is done. This process is happening in the background and you will not get notified when finished. So just wait until you will find the `api-workbench` plugin under the list of installed packages.
 
-[aw-installed image]
+![](pngs/raml_026.png)
 
 #### Creating your first RAML
 
@@ -166,7 +166,7 @@ After installing the API Workbench you should also have an additional menu entry
 
 To create a project from scratch, simple click on `Create RAML Project` and fill in all necessary information before confirming using the `Create` button.
 
-[aw-createproject image]
+![](pngs/raml_027.png)
 
 Depending on the information you put in, and let us assume the information are the same as in the image above, you should get a single **api.raml** file with the following content:
 
