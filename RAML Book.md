@@ -360,7 +360,7 @@ Just like that you can setup IDs or dynamic resource paths:
 
 ![](pngs/raml_003.png)
 
-	MULTIPLE URI PROPERTIES
+	EXPAND ON LIMITATIONS/ PATTERNS/ MULTIPLES
 
 ####Nested Resources
 But another great feature of RAML is something called resource nesting, or creating child resources.  To add a nested resource, simply follow YAML convention by tabbing in once under the parent resource, and then declare your child resource as you did your parent resource - but with a relative path from the parent's path:
@@ -489,12 +489,35 @@ Need to add:
 By providing this additional information, you are empowering your users as this information can be passed through to them in your documentation, as well as taken advantage of by other tools that parse your API's RAML spec.
 
 ####Form Data
-	This needs to be filled out!
+One important change from RAML 0.8 to RAML 1.0 was the removal of the `formParameters` property.  This means when upgrading your RAML 0.8 file, you'll need to remove this property for your speficiation to be properly parsed.
+
+Instead, form parameters are now treated identically to other content-types.
+
+To add form data, first add in the `body` property to indicate you are requesting body data to be present in the request, followed by the appropriate content-type - in this case `multipart/form-data`.  Now you can add in your form properties using the `properties` declaration:
+
+	#%RAML 1.0
+	title: My API
+	baseUri: http://api.mydomain.com
+	version: 1
+
+	/users:
+	  post:
+	    description: create a new user
+	    
+	    body:
+	      multipart/form-data:
+	        properties:
+	          firstName:
+	            type: string
+	      
+	          lastName: 
+	            type: string
+	      
 
 ####Body Data
 More common than using form data for `PUT`, `PATCH`, and `POST` calls, however, is the use of a format like JSON or XML within the body.
 
-RAML also lets you share examples of what the user should be sending when making these calls by using the `body` property, and then the corresponding content-type:
+RAML also lets you share examples of what the user should be sending when making these calls by using the `body` property, and then the corresponding content-type (as with form data):
 
 	#%RAML 1.0
 	title: My API
@@ -1321,11 +1344,11 @@ Because annotations are vendor specific, you will won't see any changes in the A
 ###Custom Auth
 
 ##6. Community Tooling
-One of the strengths of RAML is the fact that the spec is surrounded by a very active open source community, while also being supported by some of the leading enterprises - ensuring a large selection of tooling to help you in all aspects of the API lifecycle.
+One of the strengths of RAML is the fact that the specification is surrounded by a very active open source community, while also being supported by some of the leading enterprises - ensuring a large selection of tooling to help you in all aspects of the API lifecycle.
 
-Along with the release of RAML 1.0, however, MuleSoft also contributed a new tool - the API WorkBench which encompasses nearly every aspect of the API lifecycle, letting you not only design your API, but test and generate SDKs and tooling all from a single source.
+You can find the latest list of all available tools (and languages supported) on the official RAML website at http://raml.org/projects.
 
-Because of the unique capabilities of this tool, we'll first take a look at all it offers, and then jump into some of the most popular tools segemented by capability (tools for designing your API, building your API, testing your API, documenting your API, and sharing your API).
+However, here is a quick list to help you get started, divided by key areas of the continous API lifecycyle: design, build, test, document, and sharing your API.
 
 ###Design
 ####API Designer
