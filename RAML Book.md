@@ -1342,21 +1342,37 @@ Because annotations are vendor specific, you will won't see any changes in the A
 
 
 ##4. Using Data Types
-	
+TBA
+
 ###Defining Types
-	
+TBA	
+
 ###Built in Types
+TBA
 
 ###Using Existing Schemas
-
+TBA
 
 ##5. Security
+TBA
+
 ###Basic Auth
+TBA
+
 ###Digest Auth
+TBA
+
 ###OAuth 1
+TBA
+
 ###OAuth 2
+TBA
+
 ###Pass Through
+TBA
+
 ###Custom Auth
+TBA
 
 ##6. Community Tooling
 One of the strengths of RAML is the fact that the specification is surrounded by a very active open source community, while also being supported by some of the leading enterprises - ensuring a large selection of tooling to help you in all aspects of the API lifecycle.
@@ -1587,6 +1603,8 @@ Then once the API is done, we can create a myriad of tools around it for our com
 
 Let's get started by taking a real world API and showing how simple it is to keep it organized and readable.
 
+For our example, we'll be creating one of many APIs that are derived from our base platform, having both shared principles (design styles, objects) as well as properties that will be unique to the specific area of the platform the API is being designed for - in this case, our invoicing system.
+
 ###Our Structure
 We'll start off by creating a file structure designed to keep our RAML specification easy to read, and easy to edit.  Since we will be taking advantage of data types, libraries, overlays, and more - we'll split it into the following folder structure:
 
@@ -1632,10 +1650,27 @@ We will use the `root` folder to store our overlays for easy consumption, the `s
 
 			
 ###Creating our Libraries
+For our invoicing API, we'll first focus on the global properties, creating (or bringing in if already created) libraries for our API's design, as well as the global users object library, and the global products object library.  These libraries will of course be stored in the `libraries/global` directory.
+
+#####Global Designs Library (resourceTypes, Traits)
+
+#####Global Users Object Library
+
+#####Global Products Object Library
+
+####API Specific Libraries
+Now we can focus on creating API specific libraries, or in this case the objects specific to our invoicing API, such as an invoice object.  While the other libraries were stored in the global directory, unless other APIs will utilize this library we can keep it local, in the base of the `libraries` folder itself.
+
+#####Invoice Object Library
 
 ###Creating our Master Specification
+Now that we have our global libraries and API specific libraries in place we can now start focusing on building our master specification, or the specification that will serve as the source for our dev, QA, and production overlays.  This master or source specification will go in the `source` directory.
 
-###Adding in Overlays
+Because we already have the libraries defined, we are now able to quickly pull in these objects and examples, eliminating a lot of extra work, and creating a template for our developers to work off of, ensuring consistency.
+
+As an added benefit, because this is our source specifcation, we can skip the `baseUri`, instead placing that in our extensions to force using the specific extension required instead of the source RAML directly.
+
+###Adding in Overlays & Extensions
 
 ###Adding in Annotations
 
