@@ -218,7 +218,7 @@ And there you go!  Just like that you have started off your RAML file.  The next
 
 Often, an API takes or returns a specific set of media types that 1) are the same across your API or 2) have the same information defined. Let us go through an example for the former case first.
 
-	
+
 
 	#%RAML 1.0
 	title: My API
@@ -233,13 +233,13 @@ Often, an API takes or returns a specific set of media types that 1) are the sam
           	  application/json:
             	schema:
             	  # additional information about the response
-            	  
+
     post:
       body:
         application/json:
           schema:
           # additional information about the request
-          
+
     /{id}:
       get:
         responses:
@@ -248,7 +248,7 @@ Often, an API takes or returns a specific set of media types that 1) are the sam
             application/json:
                 schema:
                 # additional information about the response
-                
+
 
 By looking closer at the example above, it turns out that the API only uses the media type `application/json` to describe all of its request or responses. To reduce the amount of redundant information and to make this specific media type default across your API, RAML provides the `mediaType` property at the root-level of your API. Using that, our modified example would look like the following:
 
@@ -267,12 +267,12 @@ By looking closer at the example above, it turns out that the API only uses the 
             body:
               schema:
                 # additional information about the response
-                
+
       post:
     	body:
       	  schema:
       	    # additional information about the request
-      	    
+
       /{id}:
         get:
           responses:
@@ -303,12 +303,12 @@ In some cases, of course, you want to add an additional media type or not use th
               application/json: # needs to be mentioned explicitly again
                 schema:
                   # additional information about the response
-                  
+
       post:
         body:
           schema:
             # additional information about the request
-            
+
       /{id}:
         get:
           responses:
@@ -316,7 +316,7 @@ In some cases, of course, you want to add an additional media type or not use th
               body:
                 schema:
                   # additional information about the response
-                  
+
 
 How simple and handy is that, right? You do not need to specify the media type within every body definition of a request or response. That greatly reduce the redundant information in your API definition and makes it very easy to change from one standard media type to another.
 
@@ -330,18 +330,18 @@ To set the available protocols for the API simply add in the `protocols` propert
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	protocols: [HTTP, HTTPS]
-	
+
 Keep in mind that using the `protocols` property will override the protocol used in the baseUri property.  In other words, the following would require HTTPS even though the baseUri uses HTTP:
 
 	#%RAML 1.0
 	title: My API
 	baseUri: http://api.mydomain.com
 	version: 1
-	
+
 	protocols: [HTTPS]
-	
+
 Since this is an optional property, you really only need to use it when you do support multiple protocols, and want to explicitly share all the protocols you support.
 
 ###Creating Resources
@@ -520,16 +520,16 @@ To add form data, first add in the `body` property to indicate you are requestin
 	/users:
 	  post:
 	    description: create a new user
-	    
+
 	    body:
 	      multipart/form-data:
 	        properties:
 	          firstName:
 	            type: string
-	      
-	          lastName: 
+
+	          lastName:
 	            type: string
-	      
+
 
 ####Body Data
 More common than using form data for `PUT`, `PATCH`, and `POST` calls, however, is the use of a format like JSON or XML within the body.
@@ -916,27 +916,27 @@ Just like hypermedia, the sample error becomes part of our example response:
 						application/json:
 							example: |
 								{
-								  "error": { 
-								    "code": 400, 
-								    "message": "The user was missing required fields", 
+								  "error": {
+								    "code": 400,
+								    "message": "The user was missing required fields",
 								    "errors": [
 								      {
-								        "domain": "global", 
-								        "reason": "MissingParameter", 
-								        "message": "User first name cannot be empty", 
-								        "locationType": "parameter", 
-								        "location": "firstName", 
-								        "extendedHelp": "http://docs.domain.ext/users/post" }, 
-								      { 
-								        "domain": "global", 
-								        "reason": "MissingParameter", 
-								        "message": "User last name cannot be empty", 
+								        "domain": "global",
+								        "reason": "MissingParameter",
+								        "message": "User first name cannot be empty",
 								        "locationType": "parameter",
-								        "location": "lastName", 
-								        "extendedHelp": "http://docs.domain.ext/users/post" 
+								        "location": "firstName",
+								        "extendedHelp": "http://docs.domain.ext/users/post" },
+								      {
+								        "domain": "global",
+								        "reason": "MissingParameter",
+								        "message": "User last name cannot be empty",
+								        "locationType": "parameter",
+								        "location": "lastName",
+								        "extendedHelp": "http://docs.domain.ext/users/post"
 								      }
-								    ] 
-								  } 
+								    ]
+								  }
 								}
 
 You can learn more about descriptive error formats and their usage in my other book, Undisturbed REST: a Guide to Designing the Perfect API.
@@ -1246,7 +1246,7 @@ The reason for this is that the resourceType "collection" doesn't exist!  Instea
 	  users: !include libraries/users.raml
 
 	/users:
-	  type: 
+	  type:
 	    users.collection
 	  get:
 
@@ -1267,16 +1267,16 @@ Overlays are used to provide additional information such as descriptions or anno
 	#%RAML 1.0 Overlay
 	usage: Technical Documentation
 	extends: api.raml
-	
+
 	/users:
 	  displayName: Users
 	  description: Adding in technical documentation for the /users resource
-	  
+
 	  get:
 	  	displayName: Get Users
 	    description: Adding in technical documentation for the get method
-	
-	
+
+
 As you can see, by using an overlay we are easily able to update or provide documentation for specific environments (such as adding in private or partner resources not available to the general public).
 
 ![Picture Needed](image_needed.png)
@@ -1286,9 +1286,9 @@ But again, when using the `Overlay` keyword we're not able to change any functio
 	#%RAML 1.0 Overlay
 	usage: Developer Environment
 	extends: api.raml
-	
+
 	baseUri: http://dev.api.mydomain.com
-		
+
 Trying to do so instead returns back an error:
 
 ![Picture Needed](image_needed.png)
@@ -1299,7 +1299,7 @@ Instead, to change functionality we will want to use the `Extension` keyword, ex
 	#%RAML 1.0 Extension
 	usage: Developer Environment
 	extends: api.raml
-	
+
 	baseUri: http://dev.api.mydomain.com
 
 As when using the `Overlay` declaration the original RAML spec is merged in, being overwritten by any updates we place in our overlay:
@@ -1318,20 +1318,20 @@ To use annotations, we need to first declare the annotations within our spec, or
 	#%RAML 1.0 Overlay
 	usage: Developer Environment
 	extends: api.raml
-	
+
 	annotationTypes:
       partnerClearanceLevel: enum[low, med, high]
-        
-	
+
+
 Once they have been declared, we can now place them in our resources and methods like any other property, denoting they are an annotation by surrounding the key in parenthesis, like so:
 
 	#%RAML 1.0 Overlay
 	usage: Developer Environment
 	extends: api.raml
-	
+
 	annotationTypes:
       partnerClearanceLevel: enum[low, med, high]
-      
+
     /users:
       get:
         (partnerClearanceLevel): low
@@ -1345,7 +1345,7 @@ Because annotations are vendor specific, you will won't see any changes in the A
 TBA
 
 ###Defining Types
-TBA	
+TBA
 
 ###Built in Types
 TBA
@@ -1354,19 +1354,139 @@ TBA
 TBA
 
 ##5. Security
-TBA
+Securing your APIs is as critical as letting your consumers know what mechanism you use to protect your API. RAML 1.0 allows you to define the most common security schemes and additionally lets you declare your own custom to fit all your needs. You then apply those schemes either on the complete API which tells consumers that you use specific mechanism across your API, or on specific resources and HTTP methods.
+
+To be able to apply one or more security schemes, we need to first declare it at the top of our spec under the `securitySchemes` property:
+
+```yaml
+#%RAML 1.0
+title: Dropbox API
+
+securitySchemes:
+  private:
+    description: |
+      Dropbox supports OAuth 2.0 for authenticating all API requests.
+    type: OAuth 2.0
+    describedBy:
+      headers:
+        Authorization:
+          description: |
+             Used to send a valid OAuth 2 access token. Do not use
+             with the "access_token" query string parameter.
+          type: string
+      queryParameters:
+        access_token:
+          description: |
+             Used to send a valid OAuth 2 access token. Do not use with
+             the "Authorization" header.
+          type: string
+      responses:
+        401:
+          description: |
+              Bad or expired token. This can happen if the user or Dropbox
+              revoked or expired an access token. To fix, re-authenticate
+              the user.
+        403:
+          description: |
+              Bad OAuth request (wrong consumer key, bad nonce, expired
+              timestamp...). Unfortunately, re-authenticating the user won't help here.
+    settings:
+      authorizationUri: https://www.dropbox.com/1/oauth2/authorize
+      accessTokenUri: https://api.dropbox.com/1/oauth2/token
+      authorizationGrants: [ authorization_code, implicit ]
+```
+
+And then we are able to apply it, for example, on a specific resource using the `securedBy` property:
+
+```yaml
+/users:
+  securedBy: [ private ]
+```
+
+The type of your security scheme is indicated by the `type` property. RAML 1.0 supports the following built-in types:
+
+* OAuth 1.0
+* OAuth 2.0
+* Basic Authentication
+* Digest Authentication
+* Pass Through
+* x-{other}
+
+The following sections explain each in more detail.
 
 ###Basic Auth
-TBA
+The "Basic Authentication" authorization is based on the model that the client must authenticate itself with a user-ID and a password. The following examples shows how to define a Basic Authentication security scheme:
+
+```yaml
+#%RAML 1.0
+title: Basic Authentication Secured API
+securitySchemes:
+  basic:
+    description: |
+      This API supports Basic Authentication.
+    type: Basic Authentication
+```
 
 ###Digest Auth
 TBA
 
 ###OAuth 1
-TBA
+The OAuth 1.0 authentication follows the standard described in RFC5849. The following example shows how to set properties for OAuth 1.0:
+
+```yaml
+#%RAML 1.0
+title: OAuth 1.0 Secured API
+securitySchemes:
+  oauth_1_0:
+    description: |
+      OAuth 1.0 continues to be supported for all API requests, but OAuth 2.0 is now preferred.
+    type: OAuth 1.0
+    settings:
+      requestTokenUri: https://api.mysampleapi.com/1/oauth/request_token
+      authorizationUri: https://api.mysampleapi.com/1/oauth/authorize
+      tokenCredentialsUri: https://api.mysampleapi.com/1/oauth/access_token
+      signatures: [ 'HMAC-SHA1', 'PLAINTEXT' ]
+```
 
 ###OAuth 2
-TBA
+The OAuth 2.0 authentication follows the standard described in RFC6749. The following example shows how to set properties for OAuth 2.0:
+
+```yaml
+#%RAML 1.0
+title: OAuth 2.0 Secured API
+securitySchemes:
+  oauth_2_0:
+    description: |
+      My API supports OAuth 2.0 for authenticating all API requests.
+    type: OAuth 2.0
+    describedBy:
+      headers:
+        Authorization:
+          description: |
+             Used to send a valid OAuth 2 access token. Do not use
+             with the "access_token" query string parameter.
+          type: string
+      queryParameters:
+        access_token:
+          description: |
+             Used to send a valid OAuth 2 access token. Do not use with
+             the "Authorization" header.
+          type: string
+      responses:
+        401:
+          description: |
+              Bad or expired token. This can happen if the user or my API
+              revoked or expired an access token. To fix, re-authenticate
+              the user.
+        403:
+          description: |
+              Bad OAuth request (wrong consumer key, bad nonce, expired
+              timestamp...). Unfortunately, re-authenticating the user won't help here.
+    settings:
+      authorizationUri: https://www.myapi.com/1/oauth2/authorize
+      accessTokenUri: https://api.myapi.com/1/oauth2/token
+      authorizationGrants: [ authorization_code, implicit, 'urn:ietf:params:oauth:grant-type:saml2-bearer' ]
+```
 
 ###Pass Through
 TBA
@@ -1389,7 +1509,7 @@ However, here is a quick list to help you get started, divided by key areas of t
 TBA
 
 #####RAML Sublime Editor
-TBA 
+TBA
 
 #####RAML Syntax Highlighting for Visual Studio
 TBA
@@ -1403,7 +1523,7 @@ TBA
 
 ###Build
 To assist in building your API, there are several open-source projects to choose from.  While there are far too many languages and projects to list, here are just a few of the more popular projects to-date.
- 
+
 ####JavaScript
 #####Osprey
 Osprey is a JavaScript framework for rapidly building applications that expose RAML APIs. It’s based on Node and Express.
@@ -1419,7 +1539,7 @@ The goal of RAML for JAX-RS is to provide a set of tools to work with these tech
 TBA
 
 #####RAML Maven Plugin
-TBA 
+TBA
 
 #####Play-RAML
 TBA
@@ -1444,7 +1564,7 @@ RAML-python uses NodeJS to generate a framework for your API in Python.
 #####RAMSES
 TBA
 
-	
+
 ####Integration Frameworks
 #####MuleSoft
 
@@ -1612,7 +1732,7 @@ We'll start off by creating a file structure designed to keep our RAML specifica
 		- source
 		- libraries
 			- global
-			
+
 Inside of our libraries directory we can also create a Git-based global directory to automatically pull in libraries shared across multiple APIs.
 
 	- root
@@ -1628,7 +1748,7 @@ If you will be pulling in older schemas or examples from a RAML 0.8 API (or othe
 		- examples
 			- json
 			-xml
-			
+
 However, since we will be relying on Data Types for our API, we will omit the schemas and examples folders from our example structure.
 
 The key to the structure is ensuring that every aspect of your API has a place, and that you avoid clutter/ combinging too many things in the same place.  While this takes a little bit more work to setup, it will ensure your API will remain readable, and easy to modify as new developers join your team.
@@ -1637,7 +1757,7 @@ And if you have a separate documentation/ technical writing team, you can also a
 
 	- root
 		- docs
-		
+
 This means that for this RAML definition, our structure will look like:
 
 	- root
@@ -1645,10 +1765,10 @@ This means that for this RAML definition, our structure will look like:
 		- libraries
 			- global
 		- docs
-		
+
 We will use the `root` folder to store our overlays for easy consumption, the `source` directory to host our master or source specification, the `libraries` directory to store our library files, including a directory for shared or global libraries, and finally the `docs` folder for our docs team to be able to go in and update the documentation without worrying about functionality.
 
-			
+
 ###Creating our Libraries
 For our invoicing API, we'll first focus on the global properties, creating (or bringing in if already created) libraries for our API's design, as well as the global users object library, and the global products object library.  These libraries will of course be stored in the `libraries/global` directory.
 
