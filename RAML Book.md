@@ -1427,8 +1427,28 @@ securitySchemes:
     type: Basic Authentication
 ```
 
+As you can see, Basic Authentication does not require any special settings which you need to specify for any OAuth security schemes.
+
 ###Digest Auth
-TBA
+Digest Authentication, compared to Basic Authentication, does not require the client to send the username and password across the wire in an unencrypted form. Instead, the server sends the client a generated one-time to use string (also called a nonce value). The client combines that value with the username, realm, and the password; and runs those fields through an MD5 hashing method to produce a hash key.
+
+The client sends the produced hash key to the server along with the username and realm to authenticate itself.
+
+The following examples shows how to define a Digest Authentication security scheme:
+
+```yaml
+#%RAML 1.0
+title: Dropbox API
+version: 1
+baseUri: https://api.dropbox.com/{version}
+securitySchemes:
+  digest:
+    description: |
+      This API supports DigestSecurityScheme Authentication.
+    type: Digest Authentication
+```
+
+As you can see, Digest Authentication does not require any special settings which you need to specify for any OAuth security schemes.
 
 ###OAuth 1
 The OAuth 1.0 authentication follows the standard described in RFC5849. The following example shows how to set properties for OAuth 1.0:
@@ -1489,10 +1509,56 @@ securitySchemes:
 ```
 
 ###Pass Through
-TBA
+Pass Through authentication is a mechanism where the server delegates an authentication request to a domain controller. The following examples shows how to define a Digest Authentication security scheme:
+
+```yaml
+#%RAML 1.0
+title: Dropbox API
+version: 1
+baseUri: https://api.dropbox.com/{version}
+securitySchemes:
+  passthrough:
+    description: |
+      This API supports Pass Through Authentication.
+    type: Pass Through
+    describedBy:
+      queryParameters:
+        query:
+          type: string
+      headers:
+        api_key:
+          type: string
+```
+
+The Pass Through authentication does not require any special settings.
 
 ###Custom Auth
-TBA
+Sometimes, you have very specific security requirements that cannot be mapped directly to one of the existing security types. In this case, RAML 1.0 gives you the ability to define a custom security type that you can match to your needs. The following examples shows how to define a custom authentication security scheme using `x-{name}` as the type:
+
+```yaml
+#%RAML 1.0
+title: Custom API
+version: 1
+baseUri: https://api.custom.com/{version}
+securitySchemes:
+  custom_scheme:
+    description: |
+      A custom security scheme for authenticating requests.
+    type: x-token
+    describedBy:
+      headers:
+        SpecialToken:
+          description: |
+            Used to send a custom token.
+          type: string
+      responses:
+        401:
+          description: |
+            Bad token.
+        403:
+```
+
+Custom authentication schemes do also not have any requirements for defining specific settings.
 
 ##6. Community Tooling
 One of the strengths of RAML is the fact that the specification is surrounded by a very active open source community, while also being supported by some of the leading enterprises - ensuring a large selection of tooling to help you in all aspects of the API lifecycle.
