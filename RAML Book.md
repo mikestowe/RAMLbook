@@ -1360,12 +1360,14 @@ To be able to apply one or more security schemes, we need to first declare it at
 
 ```yaml
 #%RAML 1.0
-title: Dropbox API
+title: My API
+baseUri: https://api.mydomain.com
+version: 1
 
 securitySchemes:
   private:
     description: |
-      Dropbox supports OAuth 2.0 for authenticating all API requests.
+      My API supports OAuth 2.0 for authenticating all API requests.
     type: OAuth 2.0
     describedBy:
       headers:
@@ -1383,7 +1385,7 @@ securitySchemes:
       responses:
         401:
           description: |
-              Bad or expired token. This can happen if the user or Dropbox
+              Bad or expired token. This can happen if the user or my API
               revoked or expired an access token. To fix, re-authenticate
               the user.
         403:
@@ -1391,8 +1393,8 @@ securitySchemes:
               Bad OAuth request (wrong consumer key, bad nonce, expired
               timestamp...). Unfortunately, re-authenticating the user won't help here.
     settings:
-      authorizationUri: https://www.dropbox.com/1/oauth2/authorize
-      accessTokenUri: https://api.dropbox.com/1/oauth2/token
+      authorizationUri: https://api.mydomain.com/1/oauth2/authorize
+      accessTokenUri: https://api.mydomain.com/1/oauth2/token
       authorizationGrants: [ authorization_code, implicit ]
 ```
 
@@ -1420,6 +1422,8 @@ The "Basic Authentication" authorization is based on the model that the client m
 ```yaml
 #%RAML 1.0
 title: Basic Authentication Secured API
+version: 1
+
 securitySchemes:
   basic:
     description: |
@@ -1438,9 +1442,9 @@ The following examples shows how to define a Digest Authentication security sche
 
 ```yaml
 #%RAML 1.0
-title: Dropbox API
+title: Digest Authentication Secured API
 version: 1
-baseUri: https://api.dropbox.com/{version}
+
 securitySchemes:
   digest:
     description: |
@@ -1456,6 +1460,8 @@ The OAuth 1.0 authentication follows the standard described in RFC5849. The foll
 ```yaml
 #%RAML 1.0
 title: OAuth 1.0 Secured API
+version: 1
+
 securitySchemes:
   oauth_1_0:
     description: |
@@ -1474,6 +1480,8 @@ The OAuth 2.0 authentication follows the standard described in RFC6749. The foll
 ```yaml
 #%RAML 1.0
 title: OAuth 2.0 Secured API
+version: 1
+
 securitySchemes:
   oauth_2_0:
     description: |
@@ -1513,9 +1521,9 @@ Pass Through authentication is a mechanism where the server delegates an authent
 
 ```yaml
 #%RAML 1.0
-title: Dropbox API
+title: Pass Through Secured  API
 version: 1
-baseUri: https://api.dropbox.com/{version}
+
 securitySchemes:
   passthrough:
     description: |
@@ -1537,9 +1545,9 @@ Sometimes, you have very specific security requirements that cannot be mapped di
 
 ```yaml
 #%RAML 1.0
-title: Custom API
+title: Custom Auth Secured API
 version: 1
-baseUri: https://api.custom.com/{version}
+
 securitySchemes:
   custom_scheme:
     description: |
