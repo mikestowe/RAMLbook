@@ -1417,7 +1417,9 @@ The type of your security scheme is indicated by the `type` property. RAML 1.0 s
 The following sections explain each in more detail.
 
 ###Basic Auth
-The "Basic Authentication" authorization is based on the model that the client must authenticate itself with a user-ID and a password. The following examples shows how to define a Basic Authentication security scheme:
+The "Basic Authentication" authorization is based on the model that the client must authenticate itself with a user-ID and a password. The client sends both information as uncrypted base64 encoded text and therefore should only be used with HTTPS, otherwise the password can be easily captured and reused.
+
+The following examples shows how to define a Basic Authentication security scheme in RAML:
 
 ```yaml
 #%RAML 1.0
@@ -1431,14 +1433,37 @@ securitySchemes:
     type: Basic Authentication
 ```
 
-As you can see, Basic Authentication does not require any special settings which you need to specify for any OAuth security schemes.
+You can protect any resource or HTTP method with Basic Authentication by configuring `securedBy` and referencing back to your security scheme.
+
+```yaml
+/users:
+  securedBy: [ basic ]
+```
+
+A server that receives an unauthenticated HTTP request for a protected resource (eg `/users`) can force Basic Authentication by rejecting the request with a 401 status code with additional information that describes the authentication mechanism, in our case `Basic`, and the security scope using `realm`. The following is an example if you send an anonymous request to our `/users` resource:
+
+```
+HTTP/1.1 401 Access Denied
+WWW-Authenticate: Basic realm="Members only"
+Content-Length: 0
+```
+
+Most web browser will display a login dialog when it receives this response, allowing the user to enter the user-ID and password. The browser sends this information again with an Authorization header:
+
+```
+GET /users HTTP/1.1
+Host: api.mydomain.com
+Authorization: Basic YWRtaW46YWRtaW4=
+```
+
+The Authorization header specifies the authentication mechanism followed by a simply base64 encoded version of <user-ID>:<password>. In our example, we encoded "admin:admin" which everyone can easily decode again.
 
 ###Digest Auth
-Digest Authentication, compared to Basic Authentication, does not require the client to send the username and password across the wire in an unencrypted form. Instead, the server sends the client a generated one-time to use string (also called a nonce value). The client combines that value with the username, realm, and the password; and runs those fields through an MD5 hashing method to produce a hash key.
+Digest Authentication, compared to Basic Authentication, does not require the client to send the user-ID and password across the wire in an unencrypted form. Instead, the server sends the client a generated one-time to use string (also called a nonce value). The client combines that value with the user-ID, realm, and the password; and runs those fields through an MD5 hashing method to produce a hash key.
 
-The client sends the produced hash key to the server along with the username and realm to authenticate itself.
+The client sends the produced hash key to the server along with the user-ID and realm to authenticate itself.
 
-The following examples shows how to define a Digest Authentication security scheme:
+The following examples shows how to define a Digest Authentication security scheme in RAML:
 
 ```yaml
 #%RAML 1.0
@@ -1452,10 +1477,40 @@ securitySchemes:
     type: Digest Authentication
 ```
 
-As you can see, Digest Authentication does not require any special settings which you need to specify for any OAuth security schemes.
+You can protect any resource or HTTP method with Digest Authentication by configuring `securedBy` and referencing back to your security scheme.
+
+```yaml
+/users:
+  securedBy: [ digest ]
+```
+
+Now, if a server receives an unauthenticated HTTP request to access `/users`, it responds with a 401 status code and additional information inside the WWW-Authenticate header like the authentication mechanism used (eg Digest), the security scope using `realm`, and the generated one-time string for the client.
+
+```
+HTTP/1.1 401 Access Denied
+WWW-Authenticate: Digest realm="Members only",
+  nonce="LHOKe1l2BAA=5c373ae0d933a0bb6321125a56a2fcdb6fd7c93b"
+Content-Length: 0
+```
+
+A web browser that receives the response from a server will prompt for a user-ID and password. Once both are supplied, the client resends the same request but adds an `Authorization` header that includes all necessary information to authenticate the user.
+
+```
+GET /users HTTP/1.1
+Host: api.mydomain.com
+Authorization: Digest username="admin",
+  realm="Members only",
+  nonce="LHOKe1l2BAA=5c373ae0d933a0bb6321125a56a2fcdb6fd7c93b",
+  uri="/users",
+  response="876f419ed86d25c56d78d3851eae5e86"
+```
+
+The Authorization header specifies the authentication mechanism followed by the user-ID (username), the realm, the nonce value provided by the server, the URI, and the MD5 hash generated by the client.
+
+Digest Authentication might have its advantages compared to Basic Authentication, since it does not use the password directly which makes it harder for Hackers to restore it, but it got other security trade-offs. For example, a man-in-the-middle attacker could tell clients to use Basic Authentication instead since Digest does not provide a mechanism for clients to verify the server's identity. 
 
 ###OAuth 1
-The OAuth 1.0 authentication follows the standard described in RFC5849. The following example shows how to set properties for OAuth 1.0:
+The OAuth 1.0 authentication follows the standard described in RFC5849. The following example shows how to set properties for OAuth 1.0 in RAML:
 
 ```yaml
 #%RAML 1.0
@@ -1475,7 +1530,7 @@ securitySchemes:
 ```
 
 ###OAuth 2
-The OAuth 2.0 authentication follows the standard described in RFC6749. The following example shows how to set properties for OAuth 2.0:
+The OAuth 2.0 authentication follows the standard described in RFC6749. The following example shows how to set properties for OAuth 2.0 in RAML:
 
 ```yaml
 #%RAML 1.0
@@ -1517,7 +1572,7 @@ securitySchemes:
 ```
 
 ###Pass Through
-Pass Through authentication is a mechanism where the server delegates an authentication request to a domain controller. The following examples shows how to define a Digest Authentication security scheme:
+Pass Through authentication is a mechanism where the server delegates an authentication request to a domain controller. The following examples shows how to define a Pass Through security scheme in RAML:
 
 ```yaml
 #%RAML 1.0
@@ -1538,7 +1593,7 @@ securitySchemes:
           type: string
 ```
 
-The Pass Through authentication does not require any special settings.
+The Pass Through authentication does not require any special settings compared to an OAuth security scheme.
 
 ###Custom Auth
 Sometimes, you have very specific security requirements that cannot be mapped directly to one of the existing security types. In this case, RAML 1.0 gives you the ability to define a custom security type that you can match to your needs. The following examples shows how to define a custom authentication security scheme using `x-{name}` as the type:
