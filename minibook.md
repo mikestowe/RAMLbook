@@ -266,7 +266,7 @@ Of course, there is much more you can do with the query parameter, such as provi
 	      status:
 	        displayName: Status
 	        description: Status of the users to retrieve (active, inactive, all)
-					enum: [ "active", "inactive", "all" ]
+	        enum: [ "active", "inactive", "all" ]
 	        default: all
 	        required: false
 	        type: string
@@ -855,8 +855,8 @@ To delcare a trait, first we need to declare it at the top of our spec under the
 And then we will pull it into our method using the `is` property:
 
 	/users:
-    get:
-      is: [pageable]
+	  get:
+	    is: [pageable]
 
 Once the trait is successfully pulled in, we can see it within the API designer or in our documentation:
 
@@ -887,11 +887,11 @@ As mentioned, you can also take advantage of placeholders with traits by sending
 	        default: <<limitDefault>>
 
 	/users:
-    get:
-      is: [
-        filterable,
-        pageable: {offsetDefault: 0, limitDefault: 20}
-      ]
+	  get:
+	    is: [
+	      filterable,
+	      pageable: {offsetDefault: 0, limitDefault: 20}
+	    ]
 
 The biggest advantage of traits is that they ensure consistency in the way your methods are acted upon.  Remember in Chapter 1 where we talked about how easy it is for these inconsitencies to crop up, making APIs difficult to use (as you have to search one resource one way, but another a completely different way - or worse, the same resource different ways) - by using traits you are creating a sure way NOT to run into this issue and have such inconsistences across your API.
 
