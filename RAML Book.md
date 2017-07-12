@@ -1648,137 +1648,7 @@ securitySchemes:
 
 Custom authentication schemes do also not have any requirements for defining specific settings.
 
-## 6. Community Tooling
-One of the strengths of RAML is the fact that the specification is surrounded by a very active open source community, while also being supported by some of the leading enterprises - ensuring a large selection of tooling to help you in all aspects of the API lifecycle.
-
-You can find the latest list of all available tools (and languages supported) on the official RAML website at http://raml.org/projects.
-
-However, here is a quick list to help you get started, divided by key areas of the continous API lifecycyle: design, build, test, document, and sharing your API.
-
-### Design
-#### API Designer
-#### API WorkBench
-#### Editor Plugins
-##### vim-raml
-TBA
-
-##### RAML Sublime Editor
-TBA
-
-##### RAML Syntax Highlighting for Visual Studio
-TBA
-
-#### More Tools
-###### Restlet Studio
-TBA
-
-###### Stoplight
-TBA
-
-### Build
-To assist in building your API, there are several open-source projects to choose from.  While there are far too many languages and projects to list, here are just a few of the more popular projects to-date.
-
-#### JavaScript
-#####Osprey
-Osprey is a JavaScript framework for rapidly building applications that expose RAML APIs. It’s based on Node and Express.
-
-#### Java
-##### Restlet
-With Restlet Framework's powerful routing and filtering capabilities, unified client and server Java API, developers can build secure and scalable RESTful web APIs. It is available for all major platforms (Java SE/EE, Google AppEngine, OSGi, GWT, Android) and offers numerous extensions to fit the needs of all developers.
-
-##### RAML for JAX-RS
-The goal of RAML for JAX-RS is to provide a set of tools to work with these technologies in a way of being able to scaffold a JAVA + JAX-RS application based on an existing RAML API definition (Code Generation), or its roundtrip, generate the RAML API definition based on an existing JAVA + JAX-RS application (Documentation).
-
-##### Spring MVC - RAML Spec Synchroniser
-TBA
-
-##### RAML Maven Plugin
-TBA
-
-##### Play-RAML
-TBA
-
-#### PHP
-##### PSX Framework
-TBA
-
-##### API2Symfony Bundle
-TBA
-
-##### Gointegro
-TBA
-
-#### Python
-##### FLASK-RAML
-Flask-RAML (REST API Markup Language) generates an API server with parameter conversion, response encoding, and examples.
-
-##### raml-python
-RAML-python uses NodeJS to generate a framework for your API in Python.
-
-##### RAMSES
-TBA
-
-
-#### Integration Frameworks
-##### MuleSoft
-
-### Test
-#### Community Projects
-##### Abao
-Abao is a NodeJS command-line tool for testing API documentation written in RAML format against its backend implementation. With Abao you can easily plug your API documentation into the Continuous Integration system like Travis CI or Jenkins and have API documentation up-to-date, all the time. Abao uses Mocha for judging if a particular API response is valid or if is not.
-
-##### Vigia
-Vigia is a adaptable API integration test suite which supports test generation based on a RAML definition file.
-
-##### Postman
-Postman is one of the most popular API calling and testing tools used by developers today.  Freely available as a Chrome app, Postman supports API calls to any RESTful API and lets you setup scripts and tests after importing your RAML spec.  You can learn more about Postman at http://www.getpostman.com
-
-#### Paid Services
-#####API Fortress
-API Fortress provides testing by checking latency and response speeds within your API.  With API Fortress you can also validate responses and payloads to ensure that whether in dev or production your API is functioning correctly.  On top their services, API Fortress offers their own API - letting you test your API on demand.  Learn more about API Fortress athttp://apifortress.com/
-
-##### API Metrics
-TBA
-
-##### API Science
-API Science offers worldwide monitoring and testing of your API to identify performance issues, outages, errors.  With API Science you’re able to test multiple aspects of your HTTP based REST API including JSON, OAuth, and XML.  You can even test real, advanced CRUD sequences in production and receive alerts via Slack, PagerDuty, or via webhooks.  Learn more about API Science at https://www.apiscience.com/
-
-##### Parasoft
-TBA
-
-##### SmartBear
-SmartBear offers a large suite of testing tools for your API, letting you pull in your RAML spec to identify latency/ speed issues, errors, and verify response data.  Along with API Readiness tools, they also offer API Virtualization, Continuous Integration tooling, and Performance testing.  Learn more about SmartBear at http://smartbear.com/
-
-#### Other Tools
-##### Paw
-TBA
-
-
-### Document
-#### API Console
-TBA
-
-#### API Notebook
-TBA
-
-#### RAML to HTML
-TBA
-
-#### RAML to HTML for PHP
-TBA
-
-### Share
-#### APIMatic.io
-TBA
-
-#### REST United
-TBA
-
-### Build Your Own
-	Talk about Parsers and contributing :)
-
-
-## 7. Spec Driven Development
+## 6. Spec Driven Development
 Spec Driven Development isn't part of RAML itself, but is a methodology that lets you incorporate design and development best practices, while ensuring you get the most out of your RAML spec.
 
 Sometimes companies and project managers are adverse to the idea of contract driven design as they instantly jump back to their struggles in meeting deadlines and producing a viable product with the infamous Waterfall Methodology.
@@ -1870,7 +1740,7 @@ Here are just some of the benefits that implementing Spec Driven Development pro
 - Enables the use of open source communities and tools surrounding the spec, providing you with a strong community to learn from and freely available tooling that can save you thousands
 
 
-## 8. Putting it all Together
+## 7. Putting it all Together
 Now that we have a strong understanding of how RAML works, we can create a fairly large and complex API in very little time, and keep it not only organized, but easy to read and edit for our technical writers!
 
 Then once the API is done, we can create a myriad of tools around it for our community to take advantage of - from API Notebooks, to documentation, to SDKs, to status notifiers, to so much more!!!
