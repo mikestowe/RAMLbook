@@ -1,9 +1,9 @@
-#Let's Get Ready to RAML (working title)
+# Let's Get Ready to RAML (working title)
 #### Using RAML 1.0 to Design, Build, Test, Document, and Share Your API
 
 ------
 
-##1. Designing an API is Hard
+## 1. Designing an API is Hard
 It sure doesn't seem like it at first, but honestly, the hardest part of building an API - is not writing the code - but designing it.  Creating an API that your users will love, and that you will be able to continue to build upon, adding in more and more functionality as your platform grows.
 
 Perhaps the biggest challenge is that we're not very good at long-term API design, or as Roy Fielding, the creator of REST, states:
@@ -79,7 +79,7 @@ Again, versioning is something you should plan for, but something you'll also wa
  - Or your API is no longer extensible (what we are trying to avoid here)
 
 
-###Did I Mention: Designing an API is Hard
+### Did I Mention: Designing an API is Hard
 
 As you can see, there is a lot that goes into designing an API.  Like a legal contract, once this contract is released it is VERY difficult to go back and start changing it.  There are just too many dependencies, which means ultimately if not designed properly you'll find yourself having to version, and costing yourself far more than it would just to do it the right way - the first time.
 
@@ -91,12 +91,12 @@ RAML was designed by Uri Sarid and released back in October of 2013 to address t
 
 And if you already have your API, don't worry!  You can start implementing RAML at any stage of the API lifecycle, and even use the design aspects as you continue to expand your API (or as they say, better late than never).
 
-####Human & Machine Readable
+#### Human & Machine Readable
 Another thing that makes RAML truly unique is that it was built on YAML, a format designed to be both machine and human readable.  This means that RAML can be parsed by numerous languages (Java, .NET, Python, PHP, Ruby, JavaScript, Go, etc) while also being readable (and editable) by people with no technical knowledge.  
 
 Rather than having to dig through JSON, or use a converter, anyone on your team can quickly modify descriptions to create even better documentation.  You can even place your RAML file on GitHub to encourage your community to help maintain and build your documentation for you!
 
-####Get More Bang for Your Buck
+#### Get More Bang for Your Buck
 This single RAML file can also be used by a myriad of services to help developers integrate your API - from Integration tools like MuleSoft's Anypoint Platform - to SDK generators such as APIMatic.io, to directories such as ProgrammableWeb, and a large pool of opensource tooling.
 
 This ensures that you get the "most bang out of your buck."  In fact, the benefits have already been realized by some very large companies who have put RAML at the core of their API design - and are using it to innovate and rennovate within their companies!
@@ -344,7 +344,7 @@ Keep in mind that using the `protocols` property will override the protocol used
 
 Since this is an optional property, you really only need to use it when you do support multiple protocols, and want to explicitly share all the protocols you support.
 
-###Creating Resources
+### Creating Resources
 Creating resources in RAML is as easy as writing down it's path.  For example, if we wanted to create an API with a `/users` resource, all we would need to type is `/users:` like so:
 
 	#%RAML 1.0
@@ -372,7 +372,7 @@ And once again, just like that, the description is added to our resource:
 
 ![](pngs/raml_002.png)
 
-####URI Properties
+#### URI Properties
 To create more complex resources, or resources that utilize names or IDs, you can take advantage of URI properties, or placeholders within the resource.  To do this, simply tell the spec that your ID is a URI Property by placing curly brackets around it, like so:
 
 	/users/{id}:
@@ -383,7 +383,7 @@ Just like that you can setup IDs or dynamic resource paths:
 
 	EXPAND ON LIMITATIONS/ PATTERNS/ MULTIPLES
 
-####Nested Resources
+#### Nested Resources
 But another great feature of RAML is something called resource nesting, or creating child resources.  To add a nested resource, simply follow YAML convention by tabbing in once under the parent resource, and then declare your child resource as you did your parent resource - but with a relative path from the parent's path:
 
 	#%RAML 1.0
@@ -452,7 +452,7 @@ To add a description, simply use the `description` property:
 	    description: this is my get method
 
 
-####Querystring Parameters
+#### Querystring Parameters
 Another common functionality with APIs is Querystring Parameters, or manipulating the response using the URI querystring.
 
 RAML lets you document the different querystrings under the method they are being implemented under (hopefully this is the `GET` method!!!) by using the `queryParameters` property, like so:
@@ -505,7 +505,7 @@ Of course, there is much more you can do with the query parameter, such as provi
 
 By providing this additional information, you are empowering your users as this information can be passed through to them in your documentation, as well as taken advantage of by other tools that parse your API's RAML spec.
 
-####Form Data
+#### Form Data
 One important change from RAML 0.8 to RAML 1.0 was the removal of the `formParameters` property.  This means when upgrading your RAML 0.8 file, you'll need to remove this property for your speficiation to be properly parsed.
 
 Instead, form parameters are now treated identically to other content-types.
@@ -531,7 +531,7 @@ To add form data, first add in the `body` property to indicate you are requestin
 	            type: string
 
 
-####Body Data
+#### Body Data
 More common than using form data for `PUT`, `PATCH`, and `POST` calls, however, is the use of a format like JSON or XML within the body.
 
 RAML also lets you share examples of what the user should be sending when making these calls by using the `body` property, and then the corresponding content-type (as with form data):
@@ -629,7 +629,7 @@ As you can see, we now have multiple content types to choose from shown in our d
 What's important to remember is that schemas describe the request content, where-as examples are "real-life demos" of what that formatted content would look like when being sent to your server via the content-type body.
 
 
-###Handling Responses
+### Handling Responses
 RAML lets you easily describe all aspects of your API resource method's responses for multiple status codes including defining headers, content-types, schemas, and example responses.
 
 To declare responses in RAML, simply use the `responses` property:
@@ -643,7 +643,7 @@ To declare responses in RAML, simply use the `responses` property:
 		post:
 			responses:
 
-####Status Codes
+#### Status Codes
 As RAML is intended to describe HTTP REST APIs, responses rely on the standard HTTP status codes.
 
 The most popular status codes are:
@@ -691,7 +691,7 @@ Which as you can see adds them to our API documentation for that method:
 
 ![](pngs/raml_009.png)
 
-####Headers
+#### Headers
 Headers are used to transmit important information about the response, such as the location of newly created object.
 
 Adding headers is as simple as using the `headers` property within the status code's response block.  Then add the name of the header (such as `location`) as the property.
@@ -742,7 +742,7 @@ As you can see, this is then translated into our documentation for us:
 
 ![](pngs/raml_010.png)
 
-####Content Types
+#### Content Types
 RAML also lets you define not just one, but multiple content types for each HTTP Status Response code.
 
 This means that you can return back data as JSON, XML, plain text, form-encoded, or other formats.
@@ -786,7 +786,7 @@ To list multiple content types, you can simply add additional content types with
 
 The next step to showing off these content types is adding in example response data so that we can see what they look like.
 
-####Examples
+#### Examples
 A unique feature of RAML compared to some other specifications is the ability to create your own examples rather than forcing you to build a schema for the response.
 
 Adding an example is as simple as using the `example` property.  However, because most examples are multi-lined, and because RAML is written in the YAML format, you'll need to add a pipe "|" so that it can be properly parsed.  
@@ -822,7 +822,7 @@ Now if we look at the API Console we can see multiple content types (one for JSO
 
 ![](pngs/raml_011.png)
 
-####Schemas
+#### Schemas
 Schemas work very similarly to examples, except you need to use the `schema` property, like so:
 
 	#%RAML 1.0
@@ -866,7 +866,7 @@ Now if we look in the API Console, while we still have the example, we can now s
 
 ![](pngs/raml_012.png)
 
-####Hypermedia
+#### Hypermedia
 One of the most popular feature requests for RAML 1.0 was added support for hypermedia, or dynamically driven linking formats.
 
 However, one of the problems with hypermedia is the fact that it can be so truly dynamic, meaning that there may not be a way to actually define what responses are available for which items as each can be so individualistic.
@@ -898,7 +898,7 @@ For example, if we are using HAL (content type: application/hal+json) we can rep
 								}
 
 
-####Error Handling
+#### Error Handling
 In order to assist developers in integrating and debugging your API, it's highly recommended to use a descriptive error format such as JSON API's error method, vnd.error, or Google Errors.
 
 Because your error response should be specific to the call made by the user, it's not possible to describe all error possibilities inside of your RAML specification.  Instead, like with hypermedia, you can specifiy the response code and then provide an example of the error they might receive to help them better understand the model or response they might receive when something does go wrong.
@@ -941,12 +941,12 @@ Just like hypermedia, the sample error becomes part of our example response:
 
 You can learn more about descriptive error formats and their usage in my other book, Undisturbed REST: a Guide to Designing the Perfect API.
 
-##3. Setting up Templates
+## 3. Setting up Templates
 Now that you have an idea of what your API resources will look like, RAML let's you setup includes and templates to allow for both code reuse and the implementation of design patterns.  This not only ensures that your API is consistent throughout, but also lets you organize your API to keep it easily readable by those working with the RAML spec.
 
 It's important to remember that the benefits of code reuse and design patterns are both immediate and long-term.  While you may feel that you can build a consistent API, the patterns ensure consistency.  This especially becomes important as your API grows and newer developers start working with it - often times trying to implement new resources or methods without having a strong and full understanding of your entire API.
 
-###Includes
+### Includes
 The easiest of the templates to setup, the `!include` function lets you pull in external files, whether they be another RAML file, example response files, or schemas.
 
 Using the !include file is as simple as:
@@ -965,10 +965,10 @@ Using the !include file is as simple as:
 							example: !include examples/resource_get.json
 							schema: !include schemas/resource_get.json
 
-###Base
+### Base
 	I wish I was an oscar meyer weiner...
 
-###ResourceTypes
+### ResourceTypes
 ResourceTypes on the other hand let you create resource templates, or specific templates based on the type of resource, often split into item or collection.
 
 For example, if you are performing an operation on a collection (usually the resource WITHOUT an ID) you can setup a resourceType so that all your collection based resources operate exactly the same (just with different data).
@@ -1032,7 +1032,7 @@ Including method properties:
 
 ![](pngs/raml_014.png)
 
-####Declaring Optional Methods
+#### Declaring Optional Methods
 Of course, chances are you do not want ALL the information to be pulled in all of the time, in which case you can make methods OPTIONAL by adding a `?` to the end of the method name, like so:
 
 	#%RAML 1.0
@@ -1114,7 +1114,7 @@ These placeholders are automatically replaced with the correct data in our docum
 
 This allows us to ensure consistency not only in how our resources operate, but also in our documentation.  Making it easy for our developers to go from resource to resource, knowing that the code and the documentation will be consistent.
 
-###Traits
+### Traits
 Traits operate in a fairly similar fashion to resourceTypes except that they operate more as functions with the placeholder values being sent as properties in an array, and are designed specifically for use within the method (such as GET, PUT, PATCH, POST, or DELETE).
 
 Traits are typically used for operations such as pagination, searching, or filtering the method data.
@@ -1341,19 +1341,19 @@ Because annotations are vendor specific, you will won't see any changes in the A
 ![Picture Needed](image_needed.png)
 
 
-##4. Using Data Types
+## 4. Using Data Types
 TBA
 
-###Defining Types
+### Defining Types
 TBA
 
-###Built in Types
+### Built in Types
 TBA
 
-###Using Existing Schemas
+### Using Existing Schemas
 TBA
 
-##5. Security
+## 5. Security
 Securing your APIs is as critical as letting your consumers know what mechanism you use to protect your API. RAML 1.0 allows you to define the most common security schemes and additionally lets you declare your own custom to fit all your needs. You then apply those schemes either on the complete API which tells consumers that you use specific mechanism across your API, or on specific resources and HTTP methods.
 
 To be able to apply one or more security schemes, we need to first declare it at the top of our spec under the `securitySchemes` property:
@@ -1416,7 +1416,7 @@ The type of your security scheme is indicated by the `type` property. RAML 1.0 s
 
 The following sections explain each in more detail.
 
-###Basic Auth
+### Basic Auth
 The "Basic Authentication" authorization is based on the model that the client must authenticate itself with a user-ID and a password. The client sends both information as uncrypted base64 encoded text and therefore should only be used with HTTPS, otherwise the password can be easily captured and reused.
 
 The following examples shows how to define a Basic Authentication security scheme in RAML:
@@ -1458,7 +1458,7 @@ Authorization: Basic YWRtaW46YWRtaW4=
 
 The Authorization header specifies the authentication mechanism followed by a simply base64 encoded version of <user-ID>:<password>. In our example, we encoded "admin:admin" which everyone can easily decode again.
 
-###Digest Auth
+### Digest Auth
 Digest Authentication, compared to Basic Authentication, does not require the client to send the user-ID and password across the wire in an unencrypted form. Instead, the server sends the client a generated one-time to use string (also called a nonce value). The client combines that value with the user-ID, realm, and the password; and runs those fields through an MD5 hashing method to produce a hash key.
 
 The client sends the produced hash key to the server along with the user-ID and realm to authenticate itself.
@@ -1509,12 +1509,12 @@ The Authorization header specifies the authentication mechanism followed by the 
 
 Digest Authentication might have its advantages compared to Basic Authentication, since it does not use the password directly which makes it harder for Hackers to restore it, but it got other security trade-offs. For example, a man-in-the-middle attacker could tell clients to use Basic Authentication instead since Digest does not provide a mechanism for clients to verify the server's identity.
 
-###OAuth Authentication
+### OAuth Authentication
 Open Authentication (OAuth) is an open standard authentication protocol that allows you to log in to websites using your Google, Faceboook, or own OAuth provider without sharing your password. Compared to Basic or Digest authentication, OAuth is token-based and does not have the needs to ask for a username and a password. An OAuth token is harder to guess, tied to a particular application or device, and can be easily revoked without effecting other applications or devices. Additionally, there is no need to store or share your password.
 
 There are two versions of OAuth, each with its own strength and weaknesses.  
 
-####OAuth 1
+#### OAuth 1
 The OAuth 1.0 authentication follows the standard described in RFC5849 and is believed to be the more secure version, but less flexible and complex. Its based on a signature system where both client and server having a shared secret that they use to calculate the signature.
 
 The following example shows how to set properties for OAuth 1.0 in RAML:
@@ -1543,7 +1543,7 @@ You can protect any resource or HTTP method with OAuth 1.0 Authentication by con
   securedBy: [ oauth_1_0 ]
 ```
 
-####OAuth 2
+#### OAuth 2
 The OAuth 2.0 authentication follows the standard described in RFC6749, and removes the complicated signature system and instead relies on SSL. That is why it is believed to be less secure. Furthermore, since OAuth 2.0 requires HTTPS you can only secure website that uses it but you might want to be able to provide OAuth authentication for all your websites, also the ones that uses HTTP.
 
 The advantage using OAuth 2.0 is that it is easier to implement for third parties and more flexible. For example, it lets users choose the actions a client application can access.
@@ -1596,7 +1596,7 @@ You can protect any resource or HTTP method with OAuth 2.0 Authentication by con
   securedBy: [ oauth_2_0 ]
 ```
 
-###Pass Through
+### Pass Through
 Pass Through authentication is a mechanism where the server delegates an authentication request to a domain controller.
 
 The following examples shows how to define a Pass Through security scheme in RAML:
@@ -1620,7 +1620,7 @@ securitySchemes:
           type: string
 ```
 
-###Custom Auth
+### Custom Auth
 Sometimes, you have very specific security requirements that cannot be mapped directly to one of the existing security types. In this case, RAML 1.0 gives you the ability to define a custom security type that you can match to your needs. The following examples shows how to define a custom authentication security scheme using `x-{name}` as the type:
 
 ```yaml
@@ -1648,137 +1648,137 @@ securitySchemes:
 
 Custom authentication schemes do also not have any requirements for defining specific settings.
 
-##6. Community Tooling
+## 6. Community Tooling
 One of the strengths of RAML is the fact that the specification is surrounded by a very active open source community, while also being supported by some of the leading enterprises - ensuring a large selection of tooling to help you in all aspects of the API lifecycle.
 
 You can find the latest list of all available tools (and languages supported) on the official RAML website at http://raml.org/projects.
 
 However, here is a quick list to help you get started, divided by key areas of the continous API lifecycyle: design, build, test, document, and sharing your API.
 
-###Design
-####API Designer
-####API WorkBench
-####Editor Plugins
-#####vim-raml
+### Design
+#### API Designer
+#### API WorkBench
+#### Editor Plugins
+##### vim-raml
 TBA
 
-#####RAML Sublime Editor
+##### RAML Sublime Editor
 TBA
 
-#####RAML Syntax Highlighting for Visual Studio
+##### RAML Syntax Highlighting for Visual Studio
 TBA
 
-####More Tools
-######Restlet Studio
+#### More Tools
+###### Restlet Studio
 TBA
 
-######Stoplight
+###### Stoplight
 TBA
 
-###Build
+### Build
 To assist in building your API, there are several open-source projects to choose from.  While there are far too many languages and projects to list, here are just a few of the more popular projects to-date.
 
-####JavaScript
+#### JavaScript
 #####Osprey
 Osprey is a JavaScript framework for rapidly building applications that expose RAML APIs. It’s based on Node and Express.
 
-####Java
-#####Restlet
+#### Java
+##### Restlet
 With Restlet Framework's powerful routing and filtering capabilities, unified client and server Java API, developers can build secure and scalable RESTful web APIs. It is available for all major platforms (Java SE/EE, Google AppEngine, OSGi, GWT, Android) and offers numerous extensions to fit the needs of all developers.
 
-#####RAML for JAX-RS
+##### RAML for JAX-RS
 The goal of RAML for JAX-RS is to provide a set of tools to work with these technologies in a way of being able to scaffold a JAVA + JAX-RS application based on an existing RAML API definition (Code Generation), or its roundtrip, generate the RAML API definition based on an existing JAVA + JAX-RS application (Documentation).
 
-#####Spring MVC - RAML Spec Synchroniser
+##### Spring MVC - RAML Spec Synchroniser
 TBA
 
-#####RAML Maven Plugin
+##### RAML Maven Plugin
 TBA
 
-#####Play-RAML
+##### Play-RAML
 TBA
 
-####PHP
-#####PSX Framework
+#### PHP
+##### PSX Framework
 TBA
 
-#####API2Symfony Bundle
+##### API2Symfony Bundle
 TBA
 
-#####Gointegro
+##### Gointegro
 TBA
 
-####Python
-#####FLASK-RAML
+#### Python
+##### FLASK-RAML
 Flask-RAML (REST API Markup Language) generates an API server with parameter conversion, response encoding, and examples.
 
-#####raml-python
+##### raml-python
 RAML-python uses NodeJS to generate a framework for your API in Python.
 
-#####RAMSES
+##### RAMSES
 TBA
 
 
-####Integration Frameworks
-#####MuleSoft
+#### Integration Frameworks
+##### MuleSoft
 
-###Test
-####Community Projects
-#####Abao
+### Test
+#### Community Projects
+##### Abao
 Abao is a NodeJS command-line tool for testing API documentation written in RAML format against its backend implementation. With Abao you can easily plug your API documentation into the Continuous Integration system like Travis CI or Jenkins and have API documentation up-to-date, all the time. Abao uses Mocha for judging if a particular API response is valid or if is not.
 
-#####Vigia
+##### Vigia
 Vigia is a adaptable API integration test suite which supports test generation based on a RAML definition file.
 
-#####Postman
+##### Postman
 Postman is one of the most popular API calling and testing tools used by developers today.  Freely available as a Chrome app, Postman supports API calls to any RESTful API and lets you setup scripts and tests after importing your RAML spec.  You can learn more about Postman at http://www.getpostman.com
 
-####Paid Services
+#### Paid Services
 #####API Fortress
 API Fortress provides testing by checking latency and response speeds within your API.  With API Fortress you can also validate responses and payloads to ensure that whether in dev or production your API is functioning correctly.  On top their services, API Fortress offers their own API - letting you test your API on demand.  Learn more about API Fortress athttp://apifortress.com/
 
-#####API Metrics
+##### API Metrics
 TBA
 
-#####API Science
+##### API Science
 API Science offers worldwide monitoring and testing of your API to identify performance issues, outages, errors.  With API Science you’re able to test multiple aspects of your HTTP based REST API including JSON, OAuth, and XML.  You can even test real, advanced CRUD sequences in production and receive alerts via Slack, PagerDuty, or via webhooks.  Learn more about API Science at https://www.apiscience.com/
 
-#####Parasoft
+##### Parasoft
 TBA
 
-#####SmartBear
+##### SmartBear
 SmartBear offers a large suite of testing tools for your API, letting you pull in your RAML spec to identify latency/ speed issues, errors, and verify response data.  Along with API Readiness tools, they also offer API Virtualization, Continuous Integration tooling, and Performance testing.  Learn more about SmartBear at http://smartbear.com/
 
-####Other Tools
-#####Paw
+#### Other Tools
+##### Paw
 TBA
 
 
-###Document
-####API Console
+### Document
+#### API Console
 TBA
 
-####API Notebook
+#### API Notebook
 TBA
 
-####RAML to HTML
+#### RAML to HTML
 TBA
 
-####RAML to HTML for PHP
+#### RAML to HTML for PHP
 TBA
 
-###Share
-####APIMatic.io
+### Share
+#### APIMatic.io
 TBA
 
-####REST United
+#### REST United
 TBA
 
-###Build Your Own
+### Build Your Own
 	Talk about Parsers and contributing :)
 
 
-##7. Spec Driven Development
+## 7. Spec Driven Development
 Spec Driven Development isn't part of RAML itself, but is a methodology that lets you incorporate design and development best practices, while ensuring you get the most out of your RAML spec.
 
 Sometimes companies and project managers are adverse to the idea of contract driven design as they instantly jump back to their struggles in meeting deadlines and producing a viable product with the infamous Waterfall Methodology.
@@ -1787,7 +1787,7 @@ However, Spec Driven Development is not Waterfall or even Document Driven Design
 
 So if Spec Driven Development isn't waterfall, what is it?
 
-###What is Spec Driven Development
+### What is Spec Driven Development
 Put simply Spec Driven Development is taking two agile processes and forcing them to work together.
 
 The first agile iteration is the creation of a design - or a process that incorporates agile user testing and careful reviews to ensure that the contract or spec you create is *nearly* flawless.
@@ -1811,7 +1811,7 @@ This in essence gives you the benefits of Waterfall with the power of Agile - a 
 And while it may seem like an added step, by implementing Spec Driven Development you'll be able to identify the very flaws and inconsistencies that would otherwise doom your API, greatly shortening it's life cycle and rending all of your hard work useless!
 
 
-###The Constraints of Spec Driven Development
+### The Constraints of Spec Driven Development
 Spec Driven Development is language/ tool agnostic, and can be used with any other API spec (such as Swagger or API Blueprint), but in order to be succesful, the Spec must be:
 
 1. **Standardized** – Use of a standardized spec related to the type of application you are building
@@ -1827,32 +1827,32 @@ Spec Driven Development is language/ tool agnostic, and can be used with any oth
 6. **Persistent** – The spec is not changed without strong reason and careful testing
 
 
-####Standardized
+#### Standardized
 Spec Driven Development encourages the use of a standardized format applicable to the type of application you are building.  In the case of building an API for example, the following specs would be considered standard, or common among the industry: RAML, Swagger, API Blueprint, IO Docs.
 
 Utilizing a standard spec ensures easy portability among developers, while also ensuring that the spec your application relies on has been thoroughly tested by the community to ensure that it will meet both your short-term and long-term needs while maintaining consistency in its own format.
 
-#####Consistent
+##### Consistent
 In developing your spec you should utilize pattern driven design as well as code reuse when possible to ensure that each aspect of your spec is consistent.  In the event of building an API, this would mean ensuing your resources are all formatted similarly and your methods all operate in a similar format – both in regards to the request and available responses.
 
 The purpose of consistency is to avoid confusion in both the development, and use of your application as all aspects of the application work similarly providing the end user with the freedom to move seamlessly from one focus to another.
 
-####Tested
+#### Tested
 Spec Driven Development requires a strong, tested spec in order to build a reliable application.  This means that the spec has to be carefully crafted and then tested with both internal and external uses to ensure that it accomplishes its goals, and meets all parties needs.
 
 The spec should be crafted, mocked/ prototyped, and tested to retrieve user feedback.  Once user feedback is received, the spec should be modified appropriately, mocked, and tested again- creating a continuous cycle until you have perfected the spec – or at the least eliminated a large majority of the design issues to ensure spec and application longevity.
 
-####Concrete
+#### Concrete
 The specification should be the very foundation of your application, or in essence the concrete foundation of the house you are building.  The spec should encompass all aspects of your application, providing a solid blueprint that your developers can code to.  The spec does not have to encompass future additions, but should have taken as many of them into consideration as possible.  However, there is nothing that relates to the spec that is coded outside of existing inside of the spec.
 
-####Immutable
+#### Immutable
 The spec is the blueprint for development and is unchangeable by code.  This means that at no time is the code to deviate from the spec, or to override the spec.  The spec is the ultimate authority of the application design, being the aspect that has been most thought-out and carefully designed and tested by real-world users.  It is important to realize that short-term coding implementations can be detrimental to an application’s longevity, and as such have no place in spec driven development.
 
-####Persistent
+#### Persistent
 All things evolve, and the application and spec are no different.  However, each evolution must be just as carefully thought out as the original foundation.  The spec can change, however each change must be justified, carefully evaluated, tested, and perfected.  In the event of development, if the spec is found to be not renderable, it is important to go back and correct the spec, re-engaging in user testing and validation, and then updating the code to match to ensure that your code is consistent with your spec while also ensuring that the necessary changes do not reduce the longevity of your application.
 
 
-###The Benefits of Spec Driven Development
+### The Benefits of Spec Driven Development
 Once again, by choosing a spec such as RAML, and implementing Spec Driven Development you are setting yourself up for success, and letting your developers develop fearlessly (as they no longer have to make things up as they go, or try to look things up and learn in "real time").
 
 Here are just some of the benefits that implementing Spec Driven Development provides:
@@ -1870,7 +1870,7 @@ Here are just some of the benefits that implementing Spec Driven Development pro
 - Enables the use of open source communities and tools surrounding the spec, providing you with a strong community to learn from and freely available tooling that can save you thousands
 
 
-##8. Putting it all Together
+## 8. Putting it all Together
 Now that we have a strong understanding of how RAML works, we can create a fairly large and complex API in very little time, and keep it not only organized, but easy to read and edit for our technical writers!
 
 Then once the API is done, we can create a myriad of tools around it for our community to take advantage of - from API Notebooks, to documentation, to SDKs, to status notifiers, to so much more!!!
@@ -1879,7 +1879,7 @@ Let's get started by taking a real world API and showing how simple it is to kee
 
 For our example, we'll be creating one of many APIs that are derived from our base platform, having both shared principles (design styles, objects) as well as properties that will be unique to the specific area of the platform the API is being designed for - in this case, our invoicing system.
 
-###Our Structure
+### Our Structure
 We'll start off by creating a file structure designed to keep our RAML specification easy to read, and easy to edit.  Since we will be taking advantage of data types, libraries, overlays, and more - we'll split it into the following folder structure:
 
 	- root
@@ -1926,41 +1926,41 @@ We will use the `root` folder to store our overlays for easy consumption, the `s
 ###Creating our Libraries
 For our invoicing API, we'll first focus on the global properties, creating (or bringing in if already created) libraries for our API's design, as well as the global users object library, and the global products object library.  These libraries will of course be stored in the `libraries/global` directory.
 
-#####Global Designs Library (resourceTypes, Traits)
+##### Global Designs Library (resourceTypes, Traits)
 
-#####Global Users Object Library
+##### Global Users Object Library
 
-#####Global Products Object Library
+##### Global Products Object Library
 
-####API Specific Libraries
+#### API Specific Libraries
 Now we can focus on creating API specific libraries, or in this case the objects specific to our invoicing API, such as an invoice object.  While the other libraries were stored in the global directory, unless other APIs will utilize this library we can keep it local, in the base of the `libraries` folder itself.
 
-#####Invoice Object Library
+##### Invoice Object Library
 
-###Creating our Master Specification
+### Creating our Master Specification
 Now that we have our global libraries and API specific libraries in place we can now start focusing on building our master specification, or the specification that will serve as the source for our dev, QA, and production overlays.  This master or source specification will go in the `source` directory.
 
 Because we already have the libraries defined, we are now able to quickly pull in these objects and examples, eliminating a lot of extra work, and creating a template for our developers to work off of, ensuring consistency.
 
 As an added benefit, because this is our source specifcation, we can skip the `baseUri`, instead placing that in our extensions to force using the specific extension required instead of the source RAML directly.
 
-###Adding in Overlays & Extensions
+### Adding in Overlays & Extensions
 
-###Adding in Annotations
+### Adding in Annotations
 
-###Beyond the Specification
+### Beyond the Specification
 
-####Generate our Unit Tests
+#### Generate our Unit Tests
 
-####Build the API
+#### Build the API
 
-####Generate the Documentation
+#### Generate the Documentation
 
-####Generate SDKs
+#### Generate SDKs
 
-###The Finished Product
+### The Finished Product
 
-##More Resources
+## More Resources
 Hopefully after reading this book you have a solid foundation of what RAML is, and how to take advantage of it.  But RAML is only one small piece of the puzzle, and there is so much more to learn.
 
 I would encourage you to continue learning about how RAML can benefit you, as well as read up on API Best practices to ensure that your API provides the best experience to your users as possible, while also staying flexible enough to meet the demands of your business and platform for the next several years.
